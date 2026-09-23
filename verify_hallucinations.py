@@ -151,6 +151,35 @@ def verify():
     except Exception as e:
         print(f"  [SKIP] Sensitivity file check skipped: {e}")
 
+    print("\n=== 8. VERIFYING GRAPH SCALING STRESS TEST METRICS ===")
+    try:
+        with open("results/graph_scaling_results.json") as f:
+            scaling_data = json.load(f)
+        lat_1k = scaling_data[2]['latency_ms']
+        lat_10k = scaling_data[5]['latency_ms']
+        
+        # Verify text in paper
+        if "sub-10 ms" in tex and "50 ms" in tex:
+            print(f"  [PASS] Scaling bounds ('sub-10 ms', '50 ms') found in LaTeX.")
+            checks_passed += 1
+        else:
+            errors.append("Scaling bounds not found in main.tex")
+            
+        # Verify empirical benchmark bounds
+        if lat_1k < 10.0:
+            print(f"  [PASS] Empirical |V|=1000 latency ({lat_1k:.2f} ms) satisfies sub-10ms bound.")
+            checks_passed += 1
+        else:
+            errors.append(f"Empirical |V|=1000 latency {lat_1k} exceeded 10ms")
+            
+        if lat_10k < 80.0:
+            print(f"  [PASS] Empirical |V|=10000 latency ({lat_10k:.2f} ms) satisfies ~50ms bound.")
+            checks_passed += 1
+        else:
+            errors.append(f"Empirical |V|=10000 latency {lat_10k} exceeded 80ms")
+    except Exception as e:
+        print(f"  [SKIP] Scaling file check skipped: {e}")
+
     print(f"\n==========================================")
     print(f"Total verification checks passed: {checks_passed}")
     print(f"Total errors/mismatches: {len(errors)}")

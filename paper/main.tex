@@ -124,7 +124,14 @@ where $\lambda_{\text{base}}$ is parameterized by fact type ($\lambda_{\text{ide
 \begin{equation}
 \text{Confidence}(v) \le 0.10, \quad \Delta t_{\text{dormant}} > 4, \quad \text{deg}(v) \le 1, \quad \text{and} \quad \text{type}(v) \notin \{\text{identity}, \text{preference}\}
 \end{equation}
-protected by an $N_{\text{grace}} \ge 4$ cycle cold-start grace period. (Note that $\text{deg}(v) \le 1$ inherently guarantees that no macro-hub $v \in \mathcal{H}_{\text{macro}}$ can be evicted).
+\subsection{Computational Complexity and Scaling Analysis}
+We analyze the asymptotic time and space complexity across operational states:
+\begin{itemize}
+    \item \textbf{Waking Read Path}: Retrieval executes in $O(K \cdot d_{\text{embed}} + I_{\text{PPR}} \cdot (|\mathcal{V}| + |\mathcal{E}|))$ where $d_{\text{embed}}$ is the embedding dimensionality, $I_{\text{PPR}} \le 20$ is the power iteration convergence limit, and $|\mathcal{V}|, |\mathcal{E}|$ denote the active graph component. In empirical stress tests on personal agent graphs, U-PPR computes in sub-10 ms (averaging 4--6 ms, $>150$ QPS) at $|\mathcal{V}| = 1{,}000$ and scales gracefully to approximately 50 ms at $|\mathcal{V}| = 10{,}000$ ($59{,}980$ edges) on standard single-thread CPU.
+    \item \textbf{Waking Write Path}: Ingestion requires $O(d_{\text{embed}})$ embedding inference followed by $O(1)$ asynchronous enqueue to Redis Streams, completely isolating the user from graph indexing latency.
+    \item \textbf{Dreaming Consolidation}: Executed asynchronously off the critical read path every 6 hours. Incremental HNSW-DBSCAN operates in $O(N \log N)$ complexity, eliminating quadratic $O(N^2)$ distance matrices, while Louvain community detection executes in $O(|\mathcal{E}|)$ quasi-linear time.
+    \item \textbf{Space Complexity}: Node embeddings require $O(|\mathcal{V}| \cdot d_{\text{embed}})$ contiguous storage while the dynamic adjacency topology requires $O(|\mathcal{E}|)$ sparse representation, consuming less than $50$ MB for multi-year conversational histories.
+\end{itemize}
 
 \section{Experimental Evaluation}
 

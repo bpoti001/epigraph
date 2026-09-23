@@ -1,0 +1,38 @@
+[
+  {
+    "num_nodes": 100,
+    "num_edges": 582,
+    "latency_ms": 2.37,
+    "qps": 422.1
+  },
+  {
+    "num_nodes": 500,
+    "num_edges": 2980,
+    "latency_ms": 3.18,
+    "qps": 314.6
+  },
+  {
+    "num_nodes": 1000,
+    "num_edges": 5980,
+    "latency_ms": 5.46,
+    "qps": 183.1
+  },
+  {
+    "num_nodes": 2500,
+    "num_edges": 14980,
+    "latency_ms": 8.59,
+    "qps": 116.4
+  },
+  {
+    "num_nodes": 5000,
+    "num_edges": 29980,
+    "latency_ms": 19.91,
+    "qps": 50.2
+  },
+  {
+    "num_nodes": 10000,
+    "num_edges": 59980,
+    "latency_ms": 52.26,
+    "qps": 19.1
+  }
+]
