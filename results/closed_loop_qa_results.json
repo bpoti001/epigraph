@@ -1,0 +1,24 @@
+{
+  "total_questions_evaluated": 39,
+  "llm_evaluator": "qwen2.5vl:7b",
+  "summary": {
+    "Dense_Vector_RAG": {
+      "Token_F1": 18.34306718922104,
+      "Exact_Match": 2.564102564102564,
+      "ROUGE_L": 18.34306718922104,
+      "Temporal_F1": 11.767399267399266
+    },
+    "BM25_Keyword": {
+      "Token_F1": 17.844159359996468,
+      "Exact_Match": 2.564102564102564,
+      "ROUGE_L": 17.111558627395734,
+      "Temporal_F1": 23.177655677655675
+    },
+    "EpiGraph_Proposed": {
+      "Token_F1": 17.289142481450178,
+      "Exact_Match": 2.564102564102564,
+      "ROUGE_L": 17.289142481450178,
+      "Temporal_F1": 18.177655677655675
+    }
+  }
+}

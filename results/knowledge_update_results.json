@@ -1,0 +1,17 @@
+{
+  "Dense_Vector_RAG": {
+    "Current_Fact_Recall": 100.0,
+    "Split_Brain_Hallucination_Rate": 70.0,
+    "Total_Trials": 50
+  },
+  "BM25_Keyword": {
+    "Current_Fact_Recall": 86.0,
+    "Split_Brain_Hallucination_Rate": 80.0,
+    "Total_Trials": 50
+  },
+  "EpiGraph_SUPERSEDES": {
+    "Current_Fact_Recall": 100.0,
+    "Split_Brain_Hallucination_Rate": 0.0,
+    "Total_Trials": 50
+  }
+}

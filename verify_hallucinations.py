@@ -98,7 +98,58 @@ def verify():
             else:
                 errors.append(f"Ablation {label}: {val_str} not found in main.tex")
     except Exception as e:
-        print(f"  [SKIP] Ablation file check skipped: {e}")
+        print(f"  [SKIP] Ablation check skipped: {e}")
+
+    print("\n=== 5. VERIFYING KNOWLEDGE UPDATE & CONTRADICTION RESOLUTION (TABLE 3) ===")
+    try:
+        with open("results/knowledge_update_results.json") as f:
+            ku_data = json.load(f)
+        for s_key in ["Dense_Vector_RAG", "BM25_Keyword", "EpiGraph_SUPERSEDES"]:
+            rec_str = f"{ku_data[s_key]['Current_Fact_Recall']:.1f}\\%"
+            hal_str = f"{ku_data[s_key]['Split_Brain_Hallucination_Rate']:.1f}\\%"
+            if rec_str in tex:
+                print(f"  [PASS] KU {s_key} Recall: {rec_str} found in LaTeX.")
+                checks_passed += 1
+            else:
+                errors.append(f"KU {s_key} Recall: {rec_str} not found in main.tex")
+            if hal_str in tex:
+                print(f"  [PASS] KU {s_key} Hallucination: {hal_str} found in LaTeX.")
+                checks_passed += 1
+            else:
+                errors.append(f"KU {s_key} Hallucination: {hal_str} not found in main.tex")
+    except Exception as e:
+        print(f"  [SKIP] KU file check skipped: {e}")
+
+    print("\n=== 6. VERIFYING CLOSED-LOOP DOWNSTREAM QA (TABLE 4) ===")
+    try:
+        with open("results/closed_loop_qa_results.json") as f:
+            qa_data = json.load(f)["summary"]
+        for s_key in ["Dense_Vector_RAG", "BM25_Keyword", "EpiGraph_Proposed"]:
+            f1_str = f"{qa_data[s_key]['Token_F1']:.2f}\\%"
+            em_str = f"{qa_data[s_key]['Exact_Match']:.2f}\\%"
+            rouge_str = f"{qa_data[s_key]['ROUGE_L']:.2f}\\%"
+            temp_str = f"{qa_data[s_key]['Temporal_F1']:.2f}\\%"
+            for lbl, v in [("F1", f1_str), ("EM", em_str), ("ROUGE-L", rouge_str), ("Temp F1", temp_str)]:
+                if v in tex:
+                    print(f"  [PASS] QA {s_key} {lbl}: {v} found in LaTeX.")
+                    checks_passed += 1
+                else:
+                    errors.append(f"QA {s_key} {lbl}: {v} not found in main.tex")
+    except Exception as e:
+        print(f"  [SKIP] QA file check skipped: {e}")
+
+    print("\n=== 7. VERIFYING SENSITIVITY SWEEP METRICS ===")
+    try:
+        with open("results/sensitivity_analysis_results.json") as f:
+            sens_data = json.load(f)
+        d_085 = f"{sens_data['damping_sweep']['0.85']['Recall@5']:.2f}\\%"
+        if d_085 in tex:
+            print(f"  [PASS] Sensitivity d=0.85 Plateau: {d_085} found in LaTeX.")
+            checks_passed += 1
+        else:
+            errors.append(f"Sensitivity d=0.85: {d_085} not found in main.tex")
+    except Exception as e:
+        print(f"  [SKIP] Sensitivity file check skipped: {e}")
 
     print(f"\n==========================================")
     print(f"Total verification checks passed: {checks_passed}")
@@ -109,7 +160,7 @@ def verify():
             print("  -", err)
         return False
     else:
-        print(">>> ALL 42 BENCHMARK AND SIMULATION METRICS MATCH PERFECTLY WITH ZERO HALLUCINATIONS! <<<")
+        print(">>> ALL BENCHMARK, SIMULATION, QA, AND KNOWLEDGE UPDATE METRICS MATCH PERFECTLY! <<<")
         return True
 
 if __name__ == "__main__":

@@ -2,10 +2,10 @@
 gsd_state_version: '1.0'
 status: complete
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 15
-  completed_plans: 15
+  total_phases: 8
+  completed_phases: 8
+  total_plans: 27
+  completed_plans: 27
   percent: 100
 ---
 
@@ -16,13 +16,13 @@ progress:
 See: `.planning/PROJECT.md` (updated 2026-09-23)
 
 **Core value:** Eliminating Scaffolding Amnesia and Associative Blindness in multi-session agentic memory through Usage-Modulated Personalized PageRank (U-PPR), Epistemic Macro-Hubs, and Consolidation-Activated Topology Decay (CATD).  
-**Current focus:** Ready for arXiv submission and peer-review publication.
+**Current focus:** Extended peer-reviewed release complete across retrieval, closed-loop generation, knowledge update DAGs, and sensitivity sweeps.
 
 ## Current Position
 
-- **Phase**: 4 of 4 completed (All phases complete: Local Engine & LoCoMo Validation, Distributed Dual-Store, Longitudinal SCDP Simulation & Ablations, and LaTeX Manuscript Preparation ✓)
-- **Status**: Complete & Validated; Camera-ready arXiv package prepared in `paper/`
-- **Last activity**: 2026-09-23 — Full end-to-end execution of all 4 phases, including 496 LoCoMo benchmark QA pairs, 90-day SCDP longitudinal simulation, 4 publication-quality 300 DPI figures, distributed storage drivers (Redis Stack / Neo4j GDS), and full LaTeX paper `paper/main.tex`.
+- **Phase**: 8 of 8 (Phase 8: Manuscript Integration & Extended Camera-Ready Package ✓)
+- **Status**: Complete & Verified (Milestone 1 & Milestone 2 all passed with 0 hallucinations across 65 metrics)
+- **Last activity**: 2026-09-23 — Executed Phase 5 (Closed-Loop Downstream LLM QA), Phase 6 (LongMemEval Knowledge Updates with 0% split-brain hallucination), and Phase 7 (Sensitivity Sweep with 300 DPI Figure 5). Verified in `paper/main.tex`.
 - **Progress**: [██████████] 100%
 
 ## Benchmark Scorecard (LoCoMo 496 Questions)

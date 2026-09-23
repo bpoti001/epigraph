@@ -218,6 +218,44 @@ As detailed in Table \ref{tab:locomo_category}, EpiGraph's primary strengths lie
 To evaluate memory retention over extended horizons, we executed the Simulated Continuous Deployment Protocol (SCDP), tracking 100 conversational episodes across 90 simulated days.
 As shown in Figure \ref{fig:scaffolding}, baseline temporal decay ($e^{-\lambda \Delta t}$) aggressively degrades foundational scaffolding facts down to 60.0\% retention by Day 90. In contrast, EpiGraph's CATD achieves \textbf{100.0\% scaffolding retention}, preserving medical invariants and core identity while successfully pruning transient debugging noise. Figure \ref{fig:centrality} confirms that God Nodes dynamically emerge with high centrality ($\pi^*(v) \approx 0.26$), providing stable cognitive anchors across multi-turn sessions.
 
+\subsection{Knowledge Update and Contradiction Resolution}
+A critical failure mode of long-term conversational memory is \textit{Split-Brain Hallucination}, where mutated facts (e.g., relocation, changed preferences) co-exist in retrieval indices and prompt agents with outdated beliefs. We evaluated 50 multi-session knowledge update episodes across five representative domains (Location, Dietary Invariants, Primary Programming Language, Database Choice, and Security Policy). As summarized in Table \ref{tab:knowledge_update}, Dense Vector RAG suffers a \textbf{70.0\% split-brain hallucination rate} and BM25 suffers an \textbf{80.0\% hallucination rate}, because both the initial and updated assertions share high semantic and lexical overlap with query formulations. In contrast, EpiGraph's directed \texttt{SUPERSEDES} graph filtering resolves conflicting assertions during U-PPR traversal, achieving \textbf{0.0\% split-brain hallucination} while preserving \textbf{100.0\% current fact recall}.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Memory Architecture} & \textbf{Current Fact Recall} & \textbf{Split-Brain Hallucination} & \textbf{Contradiction Filtering} \\
+\midrule
+Dense Vector RAG & 100.0\% & 70.0\% & None (Cosine Competition) \\
+BM25 Keyword (Okapi) & 86.0\% & 80.0\% & None (Lexical Overlap) \\
+\textbf{EpiGraph (SUPERSEDES DAG)} & \textbf{100.0\%} & \textbf{0.0\%} & \textbf{Topological Suppression} \\
+\bottomrule
+\end{tabular}
+\caption{Knowledge Update \& Contradiction Resolution benchmark across 50 multi-session mutation episodes.}
+\label{tab:knowledge_update}
+\end{table}
+
+\subsection{Downstream Closed-Loop LLM Generation}
+To evaluate whether upstream retrieval advantages transfer to downstream generative tasks, we evaluated zero-shot question-answering across stratified LoCoMo dialogues using a local 7B-parameter LLM (Qwen2.5-VL-7B) on Apple Silicon GPU. Table \ref{tab:closed_loop} reports Token F1, Exact Match (EM), and ROUGE-L across all evaluated contexts.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Retrieval Backbone} & \textbf{Token F1} & \textbf{Exact Match (EM)} & \textbf{ROUGE-L} & \textbf{Temporal F1} \\
+\midrule
+Dense Vector RAG & 18.34\% & 2.56\% & 18.34\% & 11.77\% \\
+BM25 Keyword & 17.84\% & 2.56\% & 17.11\% & \textbf{23.18\%} \\
+\textbf{EpiGraph (Proposed)} & 17.29\% & 2.56\% & 17.29\% & 18.18\% \\
+\bottomrule
+\end{tabular}
+\caption{Downstream closed-loop LLM generative question answering performance on LoCoMo.}
+\label{tab:closed_loop}
+\end{table}
+
 \section{Ablation Studies}
 
 \paragraph{Impact of Cold-Start Grace Period ($N_{\text{grace}}$).}
@@ -226,9 +264,19 @@ As shown in Figure \ref{fig:ablation_grace}, setting $N_{\text{grace}} = 1$ lead
 \paragraph{Dynamic Intent Routing vs. Static RRF.}
 Comparing static RRF weights ($[0.35, 0.35, 0.35]$) against dynamic intent-routed weights reveals that dynamic intent routing improves Multi-Session Recall@5 from 22.75\% to 23.53\% and Recall@1 from 22.25\% to 22.73\% (MRR 0.4049 vs. 0.4035), confirming that dynamically re-weighting topological graph traversals against keyword signals enhances consensus ranking on complex multi-session queries. In contrast, Hebbian plasticity's core utility manifests in long-term scaffolding stability over multi-week horizons (as evidenced by our 90-day SCDP retention analysis) rather than instantaneous single-turn retrieval.
 
+\paragraph{Hyperparameter Sensitivity Landscape.}
+Figure \ref{fig:sensitivity} illustrates EpiGraph's retrieval stability across PageRank damping factors $d \in [0.65, 0.95]$ and RRF smoothing constants $k \in [20, 100]$ across 100 benchmark queries. Across $d \in [0.65, 0.85]$, Recall@5 remains invariant at a high plateau of \textbf{43.39\%} (MRR 0.4070), with only a slight reduction to 42.59\% at $d=0.95$ when random teleportation is over-suppressed. Similarly, RRF smoothing exhibits robust behavior across $k \in [40, 100]$, peaking at our chosen default of $k=60$ (43.39\% Recall@5).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/fig5_sensitivity_analysis.png}
+    \caption{Hyperparameter sensitivity landscape: Stability across PageRank damping factor $d$ (left) and RRF smoothing constant $k$ (right).}
+    \label{fig:sensitivity}
+\end{figure}
+
 \section{Conclusion}
 
-We presented \textbf{EpiGraph}, a hierarchical hybrid memory system for autonomous AI agents that unites dynamic network science with streaming context engineering. By introducing Usage-Modulated Personalized PageRank (U-PPR), Epistemic Macro-Hubs (``God Nodes''), and Consolidation-Activated Topology Decay (CATD), EpiGraph eliminates both Associative Blindness and Scaffolding Amnesia. Comprehensive local evaluation on the LoCoMo benchmark (496 questions) establishes substantial empirical gains over dense vector and static graph baselines, while maintaining sub-25ms retrieval latency. EpiGraph offers a principled, biologically grounded foundation for persistent agentic intelligence.
+We presented \textbf{EpiGraph}, a hierarchical hybrid memory system for autonomous AI agents that unites dynamic network science with streaming context engineering. By introducing Usage-Modulated Personalized PageRank (U-PPR), Epistemic Macro-Hubs (``God Nodes''), and Consolidation-Activated Topology Decay (CATD), EpiGraph eliminates both Associative Blindness and Scaffolding Amnesia. Comprehensive local evaluation on the LoCoMo benchmark (496 questions) establishes substantial empirical gains over dense vector and static graph baselines, while maintaining sub-25ms retrieval latency. Longitudinal simulations, knowledge mutation experiments, and sensitivity analyses demonstrate that EpiGraph offers a principled, biologically grounded foundation for persistent agentic intelligence.
 
 \bibliographystyle{plain}
 \bibliography{references}
