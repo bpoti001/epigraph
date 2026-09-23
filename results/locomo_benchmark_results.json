@@ -1,0 +1,69 @@
+{
+  "total_questions": 496,
+  "overall_summary": {
+    "Dense_Vector_RAG": {
+      "Recall@1": 14.193548387096774,
+      "Recall@3": 25.291189162422185,
+      "Recall@5": 32.3932436939122,
+      "HitRate@5": 42.74193548387097,
+      "MRR": 0.29063700076804916,
+      "Latency_ms": 12.854035342893292
+    },
+    "BM25_Keyword": {
+      "Recall@1": 17.980750768049152,
+      "Recall@3": 29.237471198156683,
+      "Recall@5": 34.92473400650583,
+      "HitRate@5": 45.766129032258064,
+      "MRR": 0.3273817524321557,
+      "Latency_ms": 0.514243398943255
+    },
+    "Static_Graph_RAG": {
+      "Recall@1": 3.477822580645161,
+      "Recall@3": 6.518817204301073,
+      "Recall@5": 7.560483870967742,
+      "HitRate@5": 9.67741935483871,
+      "MRR": 0.06486575140809013,
+      "Latency_ms": 5.912949962000693
+    },
+    "EpiGraph_Proposed": {
+      "Recall@1": 22.466637864823348,
+      "Recall@3": 34.854409505737785,
+      "Recall@5": 40.79085878833706,
+      "HitRate@5": 52.62096774193549,
+      "MRR": 0.39912074372759854,
+      "Latency_ms": 21.745519772652656
+    }
+  },
+  "category_breakdown": {
+    "Cat 1 (Factual Recall)": {
+      "Dense_Vector_RAG": 22.84308569350838,
+      "BM25_Keyword": 15.285590920305944,
+      "Static_Graph_RAG": 2.8065630397236614,
+      "EpiGraph_Proposed": 22.55872842728583
+    },
+    "Cat 2 (Temporal Reasoning)": {
+      "Dense_Vector_RAG": 45.49242424242424,
+      "BM25_Keyword": 57.08333333333333,
+      "Static_Graph_RAG": 12.310606060606062,
+      "EpiGraph_Proposed": 63.59848484848485
+    },
+    "Cat 3 (Multi-Session Reasoning)": {
+      "Dense_Vector_RAG": 17.96875,
+      "BM25_Keyword": 18.972120098039213,
+      "Static_Graph_RAG": 7.8125,
+      "EpiGraph_Proposed": 22.449448529411764
+    },
+    "Cat 4 (Multi-Hop Inference)": {
+      "Dense_Vector_RAG": 26.31578947368421,
+      "BM25_Keyword": 31.57894736842105,
+      "Static_Graph_RAG": 0.0,
+      "EpiGraph_Proposed": 23.684210526315788
+    },
+    "Cat 5 (Conversational / Open)": {
+      "Dense_Vector_RAG": 0.0,
+      "BM25_Keyword": 0.0,
+      "Static_Graph_RAG": 0.0,
+      "EpiGraph_Proposed": 0.0
+    }
+  }
+}
