@@ -165,10 +165,35 @@ def run_scdp_simulation(output_dir: str = "results"):
     print(f"Saved Figure 2 to: {fig2_path}")
 
     # Figure 3: LoCoMo Category Performance Breakdown
+    locomo_json_path = os.path.join(output_dir, "locomo_benchmark_results.json")
+    if os.path.exists(locomo_json_path):
+        with open(locomo_json_path) as f:
+            locomo_data = json.load(f)
+        cat_bd = locomo_data.get("category_breakdown", {})
+        dense_vec = [
+            cat_bd.get("Cat 1 (Factual Recall)", {}).get("Dense_Vector_RAG", 22.84),
+            cat_bd.get("Cat 2 (Temporal Reasoning)", {}).get("Dense_Vector_RAG", 45.49),
+            cat_bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("Dense_Vector_RAG", 17.97),
+            cat_bd.get("Cat 4 (Multi-Hop Inference)", {}).get("Dense_Vector_RAG", 26.32)
+        ]
+        bm25 = [
+            cat_bd.get("Cat 1 (Factual Recall)", {}).get("BM25_Keyword", 15.29),
+            cat_bd.get("Cat 2 (Temporal Reasoning)", {}).get("BM25_Keyword", 57.08),
+            cat_bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("BM25_Keyword", 18.97),
+            cat_bd.get("Cat 4 (Multi-Hop Inference)", {}).get("BM25_Keyword", 31.58)
+        ]
+        epigraph = [
+            cat_bd.get("Cat 1 (Factual Recall)", {}).get("EpiGraph_Proposed", 22.56),
+            cat_bd.get("Cat 2 (Temporal Reasoning)", {}).get("EpiGraph_Proposed", 63.60),
+            cat_bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("EpiGraph_Proposed", 22.45),
+            cat_bd.get("Cat 4 (Multi-Hop Inference)", {}).get("EpiGraph_Proposed", 23.68)
+        ]
+    else:
+        dense_vec = [22.84, 45.49, 17.97, 26.32]
+        bm25 = [15.29, 57.08, 18.97, 31.58]
+        epigraph = [22.56, 63.60, 22.45, 23.68]
+
     categories = ["Cat 1\n(Factual)", "Cat 2\n(Temporal)", "Cat 3\n(Multi-Session)", "Cat 4\n(Multi-Hop)"]
-    dense_vec = [22.84, 45.49, 17.97, 26.32]
-    bm25 = [15.29, 57.08, 18.97, 31.58]
-    epigraph = [22.56, 63.60, 22.45, 23.68]
 
     x = np.arange(len(categories))
     width = 0.25

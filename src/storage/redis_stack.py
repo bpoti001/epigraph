@@ -96,9 +96,11 @@ class RedisStackStore:
 
         if self.is_connected and self.client:
             key = f"doc:{fact_id}"
-            self.client.json().set(key, "$", doc)
-            # Add to DedupRegistry sorted set (keyed by timestamp or access)
-            self.client.zadd("registry:dedup_queue", {fact_id: meta.get("timestamp_epoch", 0.0)})
+            pipe = self.client.pipeline(transaction=True)
+            pipe.json().set(key, "$", doc)
+            # Add to DedupRegistry sorted set (keyed by timestamp or access) atomically
+            pipe.zadd("registry:dedup_queue", {fact_id: meta.get("timestamp_epoch", 0.0)})
+            pipe.execute()
         else:
             self._in_memory_docs[fact_id] = doc
             self._in_memory_vectors[fact_id] = embedding

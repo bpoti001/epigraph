@@ -1,0 +1,23 @@
+{
+  "EpiGraph_Dynamic_Intent": {
+    "Recall@1": 22.730513576398298,
+    "Recall@5": 41.434241141278235,
+    "MRR": 0.40493631592421914,
+    "Cat2_Temporal_R5": 64.50757575757575,
+    "Cat3_MultiSession_R5": 23.52941176470588
+  },
+  "EpiGraph_Static_RRF": {
+    "Recall@1": 22.248223886328727,
+    "Recall@5": 42.012198130525555,
+    "MRR": 0.40346502176139276,
+    "Cat2_Temporal_R5": 65.18939393939394,
+    "Cat3_MultiSession_R5": 22.74816176470588
+  },
+  "EpiGraph_No_Plasticity": {
+    "Recall@1": 23.676315284178184,
+    "Recall@5": 41.87409046810575,
+    "MRR": 0.4130800371223758,
+    "Cat2_Temporal_R5": 64.96212121212122,
+    "Cat3_MultiSession_R5": 24.21875
+  }
+}

@@ -216,8 +216,8 @@ def run_benchmark(data_path: str, num_samples: int = 10, max_qa_per_sample: int 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-file", default="/Users/tejap/memory_paper/data/locomo/locomo10.json", type=str)
-    parser.add_argument("--samples", default=3, type=int, help="Number of conversation samples to evaluate")
-    parser.add_argument("--max-qa", default=40, type=int, help="Max QA pairs per sample")
+    parser.add_argument("--samples", default=10, type=int, help="Number of conversation samples to evaluate (default: all 10)")
+    parser.add_argument("--max-qa", default=1000, type=int, help="Max QA pairs per sample (default: all)")
     parser.add_argument("--out-dir", default="/Users/tejap/memory_paper/results", type=str)
     args = parser.parse_args()
 

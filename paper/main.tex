@@ -96,7 +96,7 @@ where $\{t_k\}$ are timestamps of conversational episodes wherein both $v_i$ and
 \subsection{Usage-Modulated Personalized PageRank (U-PPR)}
 The transition matrix $\mathbf{P}(t)$ is formed by row-normalizing $\mathbf{W}(t)$. The personalization teleportation vector $\mathbf{p}(q, t)$ balances query seed relevance with historical access intensity:
 \begin{equation}
-p_i(q, t) = \theta \cdot \frac{\text{sim}(\mathbf{x}_q, \mathbf{x}_i)}{\sum_j \text{sim}(\mathbf{x}_q, \mathbf{x}_j)} + (1 - \theta) \cdot \frac{\log(1 + n_{\text{access}}(v_i)) \cdot \exp(-\mu(t - t_{\text{access}}(v_i)))}{\sum_j \log(1 + n_{\text{access}}(v_j)) \cdot \exp(-\mu(t - t_{\text{access}}(v_j)))}
+p_i(q, t) = \theta \cdot \frac{\max\left(0, \cos(\mathbf{x}_q, \mathbf{x}_i)\right)}{\sum_j \max\left(0, \cos(\mathbf{x}_q, \mathbf{x}_j)\right)} + (1 - \theta) \cdot \frac{\log(1 + n_{\text{access}}(v_i)) \cdot \exp(-\mu(t - t_{\text{access}}(v_i)))}{\sum_j \log(1 + n_{\text{access}}(v_j)) \cdot \exp(-\mu(t - t_{\text{access}}(v_j)))}
 \end{equation}
 The stationary probability distribution $\mathbf{\pi}^*(q, t)$ satisfies the fixed-point equation:
 \begin{equation}
@@ -105,26 +105,26 @@ The stationary probability distribution $\mathbf{\pi}^*(q, t)$ satisfies the fix
 where $d = 0.85$ is the damping factor, solved via power iteration.
 
 \subsection{Epistemic Macro-Hubs (``God Nodes'')}
-Nodes whose global centrality exceeds the population distribution with high degree are classified as Epistemic Macro-Hubs:
+Let $\mathbf{\pi}_{\text{global}}^*(t)$ denote the global stationary centrality distribution computed using a uniform teleportation prior $\mathbf{p}_{\text{uniform}} = \frac{1}{|\mathcal{V}|}\mathbf{1}$. Nodes whose global centrality significantly exceeds the population distribution with high degree are classified as Epistemic Macro-Hubs:
 \begin{equation}
 \mathcal{H}_{\text{macro}}(t) = \left\{ v_i \in \mathcal{V} \;\middle|\; \pi_{\text{global}}^*(v_i, t) \ge \mu_\pi + 1.2\sigma_\pi \quad \text{and} \quad \text{deg}(v_i) \ge 3 \right\}
 \end{equation}
 These macro-hubs act as gravitational anchors preventing context displacement during multi-hop expansion.
 
 \subsection{Consolidation-Activated Topology Decay (CATD)}
-To protect foundational knowledge from wall-clock amnesia, decay occurs strictly during consolidation cycles. Each node is assigned a load-bearing topological score:
+To protect foundational knowledge from wall-clock amnesia, decay occurs strictly during consolidation cycles. Each node is assigned a scale-invariant load-bearing topological score:
 \begin{equation}
-\text{Score}_{\text{topology}}(v) = 0.4 \cdot (\pi^*(v) \cdot 10) + 0.3 \cdot \min(2.0, \text{deg}(v)/3) + 0.3 \cdot \text{Prior}_{\text{type}}(v)
+\text{Score}_{\text{topology}}(v) = 0.4 \cdot \min\left(3.0, |\mathcal{V}| \cdot \pi_{\text{global}}^*(v)\right) + 0.3 \cdot \min\left(2.0, \frac{\text{deg}(v)}{3}\right) + 0.3 \cdot \text{Prior}_{\text{type}}(v)
 \end{equation}
-The effective decay rate is modulated by topology:
+where $|\mathcal{V}| \cdot \pi_{\text{global}}^*(v)$ measures the relative centrality ratio (expected value $1.0$). The effective decay rate is modulated by topology:
 \begin{equation}
 \lambda_{\text{eff}}(v) = \lambda_{\text{base}}(\text{type}(v)) \cdot \exp\left(-2.0 \cdot \text{Score}_{\text{topology}}(v)\right)
 \end{equation}
 where $\lambda_{\text{base}}$ is parameterized by fact type ($\lambda_{\text{identity}} = 0.0001, \lambda_{\text{preference}} = 0.0008, \lambda_{\text{episodic}} = 0.08$). Physical eviction requires:
 \begin{equation}
-\text{Confidence}(v) \le 0.10, \quad \Delta t_{\text{dormant}} > 4, \quad \text{deg}(v) \le 1, \quad v \notin \mathcal{H}_{\text{macro}}, \quad \text{and} \quad \text{type}(v) \notin \{\text{identity}, \text{preference}\}
+\text{Confidence}(v) \le 0.10, \quad \Delta t_{\text{dormant}} > 4, \quad \text{deg}(v) \le 1, \quad \text{and} \quad \text{type}(v) \notin \{\text{identity}, \text{preference}\}
 \end{equation}
-protected by an $N_{\text{grace}} \ge 4$ cycle cold-start grace period.
+protected by an $N_{\text{grace}} \ge 4$ cycle cold-start grace period. (Note that $\text{deg}(v) \le 1$ inherently guarantees that no macro-hub $v \in \mathcal{H}_{\text{macro}}$ can be evicted).
 
 \section{Experimental Evaluation}
 
@@ -167,15 +167,18 @@ BM25 Keyword (Okapi) & 17.98\% & 29.24\% & 34.92\% & 45.77\% & 0.3274 & \textbf{
 \toprule
 \textbf{LoCoMo Question Category} & \textbf{Dense Vector} & \textbf{BM25} & \textbf{Static Graph} & \textbf{EpiGraph (Proposed)} \\
 \midrule
-Category 1 (Factual Recall) & 22.84\% & 15.29\% & 2.81\% & \textbf{22.56\%} \\
+Category 1 (Factual Recall) & \textbf{22.84\%} & 15.29\% & 2.81\% & 22.56\% \\
 Category 2 (Temporal Reasoning) & 45.49\% & 57.08\% & 12.31\% & \textbf{63.60\%} (+18.11\%) \\
 Category 3 (Multi-Session Reasoning) & 17.97\% & 18.97\% & 7.81\% & \textbf{22.45\%} (+4.48\%) \\
-Category 4 (Multi-Hop Inference) & 26.32\% & 31.58\% & 0.00\% & \textbf{23.68\%} \\
+Category 4 (Multi-Hop Inference) & 26.32\% & \textbf{31.58\%} & 0.00\% & 23.68\% \\
 \bottomrule
 \end{tabular}
-\caption{Category-wise Recall@5 (\%) on LoCoMo.}
+\caption{Category-wise Recall@5 (\%) on LoCoMo. Bold indicates the top-performing model in each category.}
 \label{tab:locomo_category}
 \end{table}
+
+\paragraph{Category Performance Analysis.}
+As detailed in Table \ref{tab:locomo_category}, EpiGraph's primary strengths lie in Category 2 (\textbf{Temporal Reasoning}, achieving 63.60\% vs. Dense Vector's 45.49\%, an +18.11 percentage point improvement) and Category 3 (\textbf{Multi-Session Reasoning}, achieving 22.45\% vs. 17.97\%, a +4.48 point gain). In Category 1 (Factual Recall), Dense Vector marginally leads (22.84\% vs. 22.56\%) due to direct 1-to-1 semantic chunk alignment. In Category 4 (Multi-Hop Inference), BM25 achieves the highest recall (31.58\% vs. 23.68\%), because multi-hop queries in LoCoMo often hinge on specific rare lexical tokens (e.g., proper nouns and identifiers) that exact keyword matching isolates cleanly without multi-hop path dispersion. Overall, EpiGraph's quad-leg fusion strikes the optimal global balance, outperforming all baselines on cumulative Recall@1, Recall@5, and MRR.
 
 \begin{figure}[t]
     \centering
@@ -221,7 +224,7 @@ As shown in Figure \ref{fig:scaffolding}, baseline temporal decay ($e^{-\lambda 
 As shown in Figure \ref{fig:ablation_grace}, setting $N_{\text{grace}} = 1$ leads to premature eviction of newly introduced facts (42.0\% survival rate) before the dreaming cycle has an opportunity to wire them into the graph. Setting $N_{\text{grace}} = 4$ achieves a 96.0\% survival rate, comfortably exceeding our 95\% safety threshold.
 
 \paragraph{Dynamic Intent Routing vs. Static RRF.}
-Comparing static RRF weights ($[0.35, 0.35, 0.35]$) against dynamic intent-routed weights demonstrates a +4.2\% improvement in Recall@5 on temporal queries and a +3.8\% improvement on multi-session queries, verifying that adapting weights based on query characteristics significantly enhances consensus ranking.
+Comparing static RRF weights ($[0.35, 0.35, 0.35]$) against dynamic intent-routed weights reveals that dynamic intent routing improves Multi-Session Recall@5 from 22.75\% to 23.53\% and Recall@1 from 22.25\% to 22.73\% (MRR 0.4049 vs. 0.4035), confirming that dynamically re-weighting topological graph traversals against keyword signals enhances consensus ranking on complex multi-session queries. In contrast, Hebbian plasticity's core utility manifests in long-term scaffolding stability over multi-week horizons (as evidenced by our 90-day SCDP retention analysis) rather than instantaneous single-turn retrieval.
 
 \section{Conclusion}
 

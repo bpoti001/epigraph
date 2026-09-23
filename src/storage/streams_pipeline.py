@@ -82,14 +82,16 @@ class StreamsPipeline:
                         processed_count += 1
                     except Exception as err:
                         logger.error(f"Error processing {msg_id}: {err}")
+                        pipe = self.client.pipeline(transaction=True)
                         if retries >= 3:
-                            # Move to Dead Letter Queue
-                            self.client.xadd(self.dlq_name, {"failed_id": msg_id, "payload": json.dumps(payload), "error": str(err)})
-                            self.client.xack(self.stream_name, self.group_name, msg_id)
+                            # Move to Dead Letter Queue atomically
+                            pipe.xadd(self.dlq_name, {"failed_id": msg_id, "payload": json.dumps(payload), "error": str(err)})
+                            pipe.xack(self.stream_name, self.group_name, msg_id)
                         else:
-                            # Re-add with incremented retry count
-                            self.client.xadd(self.stream_name, {"payload": json.dumps(payload), "retries": retries + 1, "timestamp": time.time()})
-                            self.client.xack(self.stream_name, self.group_name, msg_id)
+                            # Re-enqueue retry with backoff tracking atomically
+                            pipe.xadd(self.stream_name, {"payload": json.dumps(payload), "retries": retries + 1, "timestamp": time.time()})
+                            pipe.xack(self.stream_name, self.group_name, msg_id)
+                        pipe.execute()
         else:
             batch = self._fallback_queue[:batch_size]
             self._fallback_queue = self._fallback_queue[batch_size:]

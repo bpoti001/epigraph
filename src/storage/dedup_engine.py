@@ -39,9 +39,9 @@ class IncrementalDeduplicator:
             meta = metadata.get(eid, {})
             access = meta.get("access_count", 0)
             pr = meta.get("pagerank", 0.0)
-            return (access, pr, eid)
+            return (-access, -pr, eid)
 
-        sorted_candidates = sorted(cluster_entity_ids, key=sort_key, reverse=True)
+        sorted_candidates = sorted(cluster_entity_ids, key=sort_key)
         winner = sorted_candidates[0]
         losers = sorted_candidates[1:]
         return winner, losers
