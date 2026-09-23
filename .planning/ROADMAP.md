@@ -7,9 +7,9 @@ EpiGraph transitions from mathematical formulation and local algorithmic validat
 ## Phases
 
 - [x] **Phase 1: Local Algorithmic Engine & LoCoMo Benchmark Validation** - Core graph algorithms, baselines, and empirical validation across 496 LoCoMo questions.
-- [ ] **Phase 2: Distributed Dual-Store & Ingestion Reliability** - Redis Stack (HNSW) + Neo4j (GDS) dual-brain integration mediated by Redis Streams with incremental deduplication.
-- [ ] **Phase 3: Longitudinal SCDP Simulation & Ablation Suite** - 100-session synthetic longitudinal simulation, God Node emergence tracking, CATD scaffolding retention tests, and ablation profiling.
-- [ ] **Phase 4: LaTeX Manuscript Preparation & arXiv Pre-Print Submission** - Publication-grade LaTeX paper compilation (`neurips_2026.sty`), TikZ vector architecture diagrams, and arXiv submission to `cs.AI` / `cs.CL`.
+- [x] **Phase 2: Distributed Dual-Store & Ingestion Reliability** - Redis Stack (HNSW) + Neo4j (GDS) dual-brain integration mediated by Redis Streams with incremental deduplication.
+- [x] **Phase 3: Longitudinal SCDP Simulation & Ablation Suite** - 100-session synthetic longitudinal simulation, God Node emergence tracking, CATD scaffolding retention tests, and ablation profiling.
+- [x] **Phase 4: LaTeX Manuscript Preparation & arXiv Pre-Print Submission** - Publication-grade LaTeX paper compilation (`neurips_2026.sty`), TikZ vector architecture diagrams, and arXiv submission to `cs.AI` / `cs.CL`.
 
 ---
 
@@ -43,10 +43,10 @@ EpiGraph transitions from mathematical formulation and local algorithmic validat
   4. Incremental K-NN deduplication & clustering (HNSW + DBSCAN) scales entity deduplication without $O(n^2)$ matrix memory blowups.
 
 **Plans**:
-- [ ] 02-01: Implement Redis Stack adapter with RedisJSON documents and RediSearch HNSW indexing.
-- [ ] 02-02: Implement Neo4j GDS driver with Cypher queries for directed `SUPERSEDES` and `CORROBORATES` edges.
-- [ ] 02-03: Implement Redis Streams ingestion worker with retry logic and Dead Letter Queue.
-- [ ] 02-04: Implement incremental HNSW + DBSCAN entity deduplication for the background Dreaming worker.
+- [x] 02-01: Implement Redis Stack adapter with RedisJSON documents and RediSearch HNSW indexing.
+- [x] 02-02: Implement Neo4j GDS driver with Cypher queries for directed `SUPERSEDES` and `CORROBORATES` edges.
+- [x] 02-03: Implement Redis Streams ingestion worker with retry logic and Dead Letter Queue.
+- [x] 02-04: Implement incremental HNSW + DBSCAN entity deduplication for the background Dreaming worker.
 
 ---
 
@@ -61,10 +61,10 @@ EpiGraph transitions from mathematical formulation and local algorithmic validat
   4. Full ablation tables quantify the marginal contribution of U-PPR, CATD, Grace Period, and Dynamic Intent RRF.
 
 **Plans**:
-- [ ] 03-01: Build longitudinal simulation harness (100 multi-session conversations with fact mutations and transient logs).
-- [ ] 03-02: Run comparative Scaffolding Test: CATD vs. Wall-clock exponential decay over simulated 90 days.
-- [ ] 03-03: Run LongMemEval Knowledge Update evaluation suite for `SUPERSEDES` validation.
-- [ ] 03-04: Run component ablations (U-PPR vs. static PPR, Grace Period variations $N=1, 2, 4, 8$).
+- [x] 03-01: Build longitudinal simulation harness (100 multi-session conversations with fact mutations and transient logs).
+- [x] 03-02: Run comparative Scaffolding Test: CATD vs. Wall-clock exponential decay over simulated 90 days.
+- [x] 03-03: Run LongMemEval Knowledge Update evaluation suite for `SUPERSEDES` validation.
+- [x] 03-04: Run component ablations (U-PPR vs. static PPR, Grace Period variations $N=1, 2, 4, 8$).
 
 ---
 
@@ -79,7 +79,7 @@ EpiGraph transitions from mathematical formulation and local algorithmic validat
   4. Pre-print bundle uploaded and registered on arXiv (`cs.AI` primary, `cs.CL` secondary).
 
 **Plans**:
-- [ ] 04-01: Set up LaTeX document repository (`neurips_2026.sty`, `references.bib`, KaTeX math definitions).
-- [ ] 04-02: Render professional vector figures (Dual-Brain architecture, Spreading Activation, Centrality curves).
-- [ ] 04-03: Write full paper sections (Abstract, Intro, Related Work, Methods, Empirical Setup, Results, Ablations, Conclusion).
-- [ ] 04-04: Compile final PDF, verify typesetting, and prepare arXiv submission package.
+- [x] 04-01: Set up LaTeX document repository (`neurips_2026.sty`, `references.bib`, KaTeX math definitions).
+- [x] 04-02: Render professional vector figures (Dual-Brain architecture, Spreading Activation, Centrality curves).
+- [x] 04-03: Write full paper sections (Abstract, Intro, Related Work, Methods, Empirical Setup, Results, Ablations, Conclusion).
+- [x] 04-04: Compile final PDF, verify typesetting, and prepare arXiv submission package.

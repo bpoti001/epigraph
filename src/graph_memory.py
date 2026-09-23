@@ -202,18 +202,27 @@ class DynamicCognitiveGraph:
             if age <= grace_cycles:
                 continue
 
-            # Load-bearing topology score
+            # Fact-type parameterization
+            if node.node_type == "identity":
+                base_lambda = 0.0001
+            elif node.node_type == "preference":
+                base_lambda = 0.0008
+            elif node.node_type in ["entity", "session_anchor"]:
+                base_lambda = 0.015
+            else:
+                base_lambda = 0.08
+
             deg = self.graph.degree(nid) if self.graph.has_node(nid) else 0
             pr = node.pagerank
-            type_prior = 1.0 if node.node_type in ["entity", "session_anchor"] else 0.5
-            topo_score = 0.4 * pr * 10.0 + 0.3 * (deg / 10.0) + 0.3 * type_prior
+            topo_score = 0.4 * (pr * 10.0) + 0.3 * min(2.0, deg / 3.0) + 0.3 * (1.5 if node.is_god_node else 0.2)
 
-            # Exponential decay factor inversely proportional to topology score
-            decay = math.exp(-0.25 / (topo_score + 1e-4))
-            node.confidence = max(0.05, node.confidence * decay)
+            # CATD retention half-life modulated by topology score
+            cycles_dormant = max(0, self.current_cycle - node.last_access_cycle)
+            lambda_eff = base_lambda * math.exp(-2.0 * topo_score)
+            node.confidence = max(0.05, math.exp(-lambda_eff * cycles_dormant))
 
-            # Eviction criteria: low confidence, stagnant access, low degree, not a God Node
-            if node.confidence <= 0.10 and (self.current_cycle - node.last_access_cycle) > 4 and deg <= 1 and not node.is_god_node:
+            # Eviction criteria: low confidence, stagnant access, low degree, not a God Node, and not a core identity/preference
+            if node.confidence <= 0.10 and cycles_dormant > 4 and deg <= 1 and not node.is_god_node and node.node_type not in ["identity", "preference"]:
                 evicted.append(nid)
 
         for nid in evicted:

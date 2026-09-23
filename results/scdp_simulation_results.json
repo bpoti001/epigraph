@@ -1,0 +1,12 @@
+{
+  "days": 90,
+  "total_sessions": 127,
+  "catd_final_retention": 100.0,
+  "baseline_final_retention": 60.0,
+  "figures": [
+    "results/figures/fig1_scaffolding_survival.png",
+    "results/figures/fig2_god_node_centrality.png",
+    "results/figures/fig3_locomo_performance.png",
+    "results/figures/fig4_ablation_grace_period.png"
+  ]
+}
