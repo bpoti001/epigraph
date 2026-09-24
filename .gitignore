@@ -3,3 +3,7 @@ __pycache__/
 .DS_Store
 .venv/
 venv/
+*.aux
+*.out
+*.log
+*.xdv

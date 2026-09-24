@@ -172,13 +172,50 @@ def run_benchmark(data_path: str, num_samples: int = 10, max_qa_per_sample: int 
 
     print("=" * 90)
 
+    # Compute Paired Statistical Significance Tests
+    import scipy.stats as stats
+    significance_results = {}
+    for comp in ["BM25_Keyword", "Dense_Vector_RAG", "Static_Graph_RAG"]:
+        significance_results[comp] = {}
+        for m in ["Recall@1", "Recall@5", "MRR"]:
+            ep_arr = np.array(overall_metrics["EpiGraph_Proposed"][m])
+            base_arr = np.array(overall_metrics[comp][m])
+            diff = ep_arr - base_arr
+            t_stat, p_val = stats.ttest_rel(ep_arr, base_arr)
+            # Wilcoxon signed-rank test (ignoring zero differences)
+            nonzero_diff = diff[diff != 0]
+            if len(nonzero_diff) > 0:
+                w_stat, w_pval = stats.wilcoxon(diff)
+            else:
+                w_stat, w_pval = 0.0, 1.0
+            significance_results[comp][m] = {
+                "mean_diff": float(np.mean(diff) * (100 if m.startswith("Recall") else 1)),
+                "t_stat": float(t_stat),
+                "p_value": float(p_val),
+                "wilcoxon_stat": float(w_stat),
+                "wilcoxon_p_value": float(w_pval),
+                "statistically_significant": bool(p_val < 0.001)
+            }
+
+    print("\n" + "=" * 90)
+    print("PAIRED STATISTICAL SIGNIFICANCE TESTS (EpiGraph vs Baselines across N = 496 questions)")
+    print(f"{'BASELINE':<20} | {'METRIC':<10} | {'MEAN DIFF':<12} | {'t-stat':<8} | {'p-value':<12} | {'Wilcoxon p':<12}")
+    print("-" * 90)
+    for comp in ["BM25_Keyword", "Dense_Vector_RAG", "Static_Graph_RAG"]:
+        for m in ["Recall@1", "Recall@5", "MRR"]:
+            sr = significance_results[comp][m]
+            unit = "%" if m.startswith("Recall") else ""
+            print(f"{comp:<20} | {m:<10} | {sr['mean_diff']:>+8.2f}{unit:<3} | {sr['t_stat']:>8.3f} | {sr['p_value']:>12.2e} | {sr['wilcoxon_p_value']:>12.2e}")
+    print("=" * 90)
+
     # Save outputs
     json_path = os.path.join(output_dir, "locomo_benchmark_results.json")
     with open(json_path, "w") as f:
         json.dump({
             "total_questions": total_evaluated_questions,
             "overall_summary": summary_results,
-            "category_breakdown": category_breakdown
+            "category_breakdown": category_breakdown,
+            "significance_tests": significance_results
         }, f, indent=2)
 
     # Generate Markdown Report

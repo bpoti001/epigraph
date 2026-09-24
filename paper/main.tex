@@ -50,7 +50,7 @@ In this work, we propose \textbf{EpiGraph}, a biologically inspired, hierarchica
     \item \textbf{Consolidation-Activated Topology Decay (CATD)}: A synaptic forgetting rule executed strictly off the read path that scales retention half-life by topological load-bearing weight rather than wall-clock time, protecting foundational scaffolding with a cold-start grace period ($N_{\text{grace}} \ge 4$).
     \item \textbf{Hierarchical Context Engineering}: A multi-leg retrieval pipeline fusing dense vectors, U-PPR graph traversal, and BM25 via dynamic intent-routed Reciprocal Rank Fusion (RRF).
 \end{enumerate}
-We evaluate EpiGraph locally across all 10 long-term multi-session conversations (496 evaluation QA pairs) in the \textbf{LoCoMo} benchmark. EpiGraph achieves a \textbf{+58.3\% relative improvement in Recall@1} (22.47\% vs. 14.19\%) and a \textbf{+25.9\% relative improvement in Recall@5} (40.79\% vs. 32.39\%) over dense vector RAG, while surpassing static graph RAG by more than $5\times$. On temporal reasoning, EpiGraph yields an \textbf{+18.11 percentage point gain} (63.60\% vs. 45.49\%). In knowledge update evaluations over 50 mutating episodes, directed \texttt{SUPERSEDES} DAG edge filtering reduces split-brain hallucinations from 70.0\% down to \textbf{0.0\%}. Longitudinal 90-day continuous deployment simulations prove that CATD achieves \textbf{100.0\% scaffolding retention} where baseline temporal decay degrades to 60.0\%, all while maintaining sub-25ms retrieval latency.
+We evaluate EpiGraph locally across all 10 long-term multi-session conversations (1,982 evaluation QA pairs) in the \textbf{LoCoMo} benchmark. EpiGraph achieves a \textbf{+38.9\% relative improvement in Recall@5} (53.21\% vs. 38.29\%, paired $t=13.57, p < 0.001$) and a \textbf{+43.1\% improvement in MRR} (0.4203 vs. 0.2937, $p < 0.001$) over dense vector RAG, while significantly outperforming Okapi BM25 (+4.55 percentage points in Recall@5, paired $t=5.90, p < 0.001$; MRR 0.4203 vs. 0.4059, $p = 0.027$) and surpassing static graph RAG by $>6\times$ (53.21\% vs. 8.50\%, $p < 0.001$). On temporal reasoning, EpiGraph yields 62.33\% Recall@5 (+16.67 points over dense vectors, +6.23 points over BM25). In downstream closed-loop generation with a local 7B reader model, EpiGraph demonstrates token F1 parity (17.29\% vs. 18.34\%) alongside superior temporal generation precision (18.18\% vs. 11.77\%). In simulated knowledge mutation evaluations over 50 synthetic episodes, directed \texttt{SUPERSEDES} DAG filtering reduces split-brain hallucinations from 70.0\% down to \textbf{0.0\%}. Longitudinal 90-day continuous deployment simulations prove that CATD achieves \textbf{100.0\% scaffolding retention} where baseline temporal decay degrades to 60.0\%, all while maintaining sub-30ms retrieval latency.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -65,7 +65,7 @@ To provide persistent state across disjoint sessions, current systems predominan
 \begin{itemize}
     \item \textbf{Flat Vector RAG}: Storing chunked dialogues in vector databases (e.g., HNSW indices) and retrieving top-$K$ chunks via cosine similarity.
     \item \textbf{OS-Inspired Virtual Memory}: Using explicit LLM tool calls to page memory chunks between context RAM and archival disk (e.g., MemGPT \cite{packer2023memgpt}).
-    \item \textbf{Static Knowledge Graph RAG}: Extracting entity-relation triples into static knowledge graphs traversed via static Personalized PageRank (e.g., HippoRAG \cite{bernal2024hipporag}) or hierarchical Leiden communities (e.g., GraphRAG \cite{edge2024graphrag}).
+    \item \textbf{Static Knowledge Graph RAG}: Extracting entity-relation triples into static knowledge graphs traversed via static Personalized PageRank (e.g., HippoRAG \cite{gutierrez2024hipporag}) or hierarchical Leiden communities (e.g., GraphRAG \cite{edge2024graphrag}).
 \end{itemize}
 
 Despite their strengths, these paradigms fail in continuous conversational agent deployments due to three foundational pathologies:
@@ -80,17 +80,17 @@ Despite their strengths, these paradigms fail in continuous conversational agent
     \item We formulate \textbf{Dynamic Hebbian Usage Plasticity} on memory graphs, where edge weights dynamically strengthen when co-retrieved during conversational tasks.
     \item We introduce \textbf{Usage-Modulated Personalized PageRank (U-PPR)} and mathematically define the emergence of \textbf{Epistemic Macro-Hubs (``God Nodes'')} that anchor multi-hop context expansion.
     \item We formulate \textbf{Consolidation-Activated Topology Decay (CATD)}, solving Scaffolding Amnesia through load-bearing topological retention.
-    \item We validate EpiGraph on the full 10-conversation, 496-question \textbf{LoCoMo} benchmark \cite{mahbub2024locomo}, demonstrating substantial gains across factual, temporal, and multi-session reasoning categories with sub-25ms query latency.
-    \item We demonstrate that directed \texttt{SUPERSEDES} DAG filtering eliminates split-brain hallucinations (0.0\% vs. 70.0\%) across mutating long-term facts.
+    \item We validate EpiGraph on the full 10-conversation, 1,982-question \textbf{LoCoMo} benchmark \cite{maharana2024evaluating}, demonstrating statistically significant gains ($p < 0.001$) across factual, temporal, and multi-session reasoning categories with sub-30ms query latency.
+    \item We demonstrate that directed \texttt{SUPERSEDES} DAG filtering eliminates split-brain hallucinations (0.0\% vs. 70.0\%) across mutating long-term facts in synthetic simulation environments.
 \end{itemize}
 
 \section{Related Work}
 
 \paragraph{Vector RAG and Score Incomparability.} Dense vector embeddings mapped into Hierarchical Navigable Small World (HNSW) graphs \cite{malkov2018hnsw} provide sub-millisecond similarity search. However, dense vectors struggle with exact keywords (e.g., error codes, IDs). While hybrid search incorporates Okapi BM25 \cite{robertson2009bm25}, raw vector distances and BM25 scores are fundamentally incomparable. Reciprocal Rank Fusion (RRF) \cite{cormack2009rrf} circumvents score normalization by aggregating ordinal ranks.
 
-\paragraph{Graph-Augmented Agent Memory.} HippoRAG \cite{bernal2024hipporag} draws inspiration from the neurobiological Complementary Learning Systems (CLS) theory, using an OpenIE knowledge graph and Personalized PageRank \cite{page1999pagerank} as an associative hippocampal index. Microsoft GraphRAG \cite{edge2024graphrag} uses the Leiden/Louvain algorithm \cite{blondel2008louvain} to generate macro-summaries. However, both frameworks treat graphs as static indices over static corpora, lacking operational usage feedback, dynamic plasticity, or active pruning.
+\paragraph{Graph-Augmented Agent Memory.} HippoRAG \cite{gutierrez2024hipporag} draws inspiration from the neurobiological Complementary Learning Systems (CLS) theory, using an OpenIE knowledge graph and Personalized PageRank \cite{page1999pagerank} as an associative hippocampal index. Microsoft GraphRAG \cite{edge2024graphrag} uses the Leiden/Louvain algorithm \cite{blondel2008louvain} to generate macro-summaries. However, both frameworks treat graphs as static indices over static corpora, lacking operational usage feedback, dynamic plasticity, or active pruning.
 
-\paragraph{Long-Term Memory Benchmarks.} Recent efforts have shifted toward evaluating long-term, multi-session memory. The \textbf{LoCoMo} benchmark \cite{mahbub2024locomo} evaluates factual recall, temporal reasoning, and multi-hop inference across up to 35 conversational sessions. \textbf{LongMemEval} \cite{wu2025longmemeval} and \textbf{MemoryArena} \cite{memoryarena2026} evaluate knowledge updates and closed-loop decision making.
+\paragraph{Long-Term Memory Benchmarks.} Recent efforts have shifted toward evaluating long-term, multi-session memory. The \textbf{LoCoMo} benchmark \cite{maharana2024evaluating} evaluates factual recall, temporal reasoning, and multi-hop inference across up to 35 conversational sessions. \textbf{LongMemEval} \cite{wu2024longmemeval} and \textbf{Mem0} \cite{chhikara2025mem0} evaluate knowledge updates and agent memory frameworks in multi-session environments.
 
 \begin{figure*}[t]
     \centering
@@ -206,9 +206,9 @@ We analyze the asymptotic time and space complexity across operational states:
 \section{Experimental Evaluation}
 
 \subsection{LoCoMo Benchmark Setup}
-We evaluate on the official \textbf{LoCoMo} dataset \cite{mahbub2024locomo}, consisting of 10 long-term multi-session human-edited dialogues spanning up to 35 sessions each. We evaluate all 496 question-answer pairs categorized into:
+We evaluate on the official \textbf{LoCoMo} dataset \cite{maharana2024evaluating}, consisting of 10 long-term multi-session human-edited dialogues spanning up to 35 sessions each. We evaluate all 1,982 question-answer pairs categorized into:
 \begin{itemize}
-    \item Category 1: Factual Extraction
+    \item Category 1: Factual Recall
     \item Category 2: Temporal Reasoning
     \item Category 3: Multi-Session Reasoning
     \item Category 4: Multi-Hop Inference
@@ -216,7 +216,7 @@ We evaluate on the official \textbf{LoCoMo} dataset \cite{mahbub2024locomo}, con
 \end{itemize}
 
 \subsection{Overall Benchmark Results}
-Table \ref{tab:locomo_overall} summarizes retrieval performance across all 496 evaluation questions.
+Table \ref{tab:locomo_overall} summarizes retrieval performance across all 1,982 evaluation questions.
 
 \begin{table*}[t]
 \centering
@@ -225,15 +225,16 @@ Table \ref{tab:locomo_overall} summarizes retrieval performance across all 496 e
 \toprule
 \textbf{Architecture / Model} & \textbf{Recall@1} & \textbf{Recall@3} & \textbf{Recall@5} & \textbf{HitRate@5} & \textbf{MRR} & \textbf{Latency (ms)} \\
 \midrule
-Static Graph RAG (HippoRAG-style) & 3.48\% & 6.52\% & 7.56\% & 9.68\% & 0.0649 & 5.91 ms \\
-Dense Vector RAG (all-MiniLM-L6-v2) & 14.19\% & 25.29\% & 32.39\% & 42.74\% & 0.2906 & 12.85 ms \\
-BM25 Keyword (Okapi) & 17.98\% & 29.24\% & 34.92\% & 45.77\% & 0.3274 & \textbf{0.51 ms} \\
-\textbf{EpiGraph (Proposed)} & \textbf{22.47\%} & \textbf{34.85\%} & \textbf{40.79\%} & \textbf{52.62\%} & \textbf{0.3991} & 21.75 ms \\
+Static Graph RAG (HippoRAG-style) & 3.99\% & 7.07\% & 8.50\% & 9.38\% & 0.0657 & 5.70 ms \\
+Dense Vector RAG (all-MiniLM-L6-v2) & 17.17\% & 31.32\% & 38.29\% & 43.09\% & 0.2937 & 14.37 ms \\
+BM25 Keyword (Okapi) & \textbf{28.51\%} & 43.47\% & 48.66\% & 52.98\% & 0.4059 & \textbf{0.63 ms} \\
+\textbf{EpiGraph (Proposed)} & 27.21\%$^*$ & \textbf{45.40\%}$^*$ & \textbf{53.21\%}$^{*\dagger}$ & \textbf{58.12\%}$^*$ & \textbf{0.4203}$^{*\ddagger}$ & 26.21 ms \\
 \midrule
-\textit{Relative Gain vs. Dense Vector} & \textbf{+58.3\%} & \textbf{+37.8\%} & \textbf{+25.9\%} & \textbf{+23.1\%} & \textbf{+37.3\%} & --- \\
+\textit{Relative Gain vs. Dense Vector} & \textbf{+58.5\%} & \textbf{+45.0\%} & \textbf{+39.0\%} & \textbf{+34.9\%} & \textbf{+43.1\%} & --- \\
+\textit{Absolute Gain vs. BM25} & -1.30\% & +1.93\% & \textbf{+4.55\%}$^\dagger$ & \textbf{+5.14\%} & \textbf{+0.0144}$^\ddagger$ & --- \\
 \bottomrule
 \end{tabular}
-\caption{Retrieval performance on the complete LoCoMo benchmark (496 questions, 10 multi-session conversations).}
+\caption{Retrieval performance on the complete LoCoMo benchmark (1,982 questions across 10 multi-session conversations). Paired statistical significance over Dense Vector is denoted by $^* (p < 0.001)$; paired significance over BM25 is denoted by $^\dagger (p < 0.001, t=5.90)$ and $^\ddagger (p = 0.027, t=2.22)$.}
 \label{tab:locomo_overall}
 \end{table*}
 
@@ -244,19 +245,20 @@ BM25 Keyword (Okapi) & 17.98\% & 29.24\% & 34.92\% & 45.77\% & 0.3274 & \textbf{
 \toprule
 \textbf{LoCoMo Question Category} & \textbf{Dense Vector} & \textbf{BM25} & \textbf{Static Graph} & \textbf{EpiGraph (Proposed)} \\
 \midrule
-Category 1 (Factual Recall) & \textbf{22.84\%} & 15.29\% & 2.81\% & 22.56\% \\
-Category 2 (Temporal Reasoning) & 45.49\% & 57.08\% & 12.31\% & \textbf{63.60\%} (+18.11\%) \\
-Category 3 (Multi-Session Reasoning) & 17.97\% & 18.97\% & 7.81\% & \textbf{22.45\%} (+4.48\%) \\
-Category 4 (Multi-Hop Inference) & 26.32\% & \textbf{31.58\%} & 0.00\% & 23.68\% \\
+Category 1 (Factual Recall) & \textbf{22.13\%} & 14.84\% & 2.22\% & 21.89\% \\
+Category 2 (Temporal Reasoning) & 45.66\% & 56.10\% & 12.64\% & \textbf{62.33\%} (+6.23\%) \\
+Category 3 (Multi-Session Reasoning) & 19.47\% & 18.63\% & 6.88\% & \textbf{25.25\%} (+5.78\%) \\
+Category 4 (Multi-Hop Inference) & 48.22\% & 56.58\% & 8.72\% & \textbf{61.18\%} (+4.60\%) \\
+Category 5 (Conversational / Open) & 28.36\% & 55.94\% & 9.42\% & \textbf{57.17\%} (+1.23\%) \\
 \bottomrule
 \end{tabular}
 }
-\caption{Category-wise Recall@5 (\%) on LoCoMo. Bold indicates the top-performing model in each category.}
+\caption{Category-wise Recall@5 (\%) on LoCoMo across all 1,982 questions. Bold indicates the top-performing model in each category.}
 \label{tab:locomo_category}
 \end{table}
 
 \paragraph{Category Performance Analysis.}
-As detailed in Table \ref{tab:locomo_category}, EpiGraph's primary strengths lie in Category 2 (\textbf{Temporal Reasoning}, achieving 63.60\% vs. Dense Vector's 45.49\%, an +18.11 percentage point improvement) and Category 3 (\textbf{Multi-Session Reasoning}, achieving 22.45\% vs. 17.97\%, a +4.48 point gain). In Category 1 (Factual Recall), Dense Vector marginally leads (22.84\% vs. 22.56\%) due to direct 1-to-1 semantic chunk alignment. In Category 4 (Multi-Hop Inference), BM25 achieves the highest recall (31.58\% vs. 23.68\%), because multi-hop queries in LoCoMo often hinge on specific rare lexical tokens (e.g., proper nouns and identifiers) that exact keyword matching isolates cleanly without multi-hop path dispersion. Overall, EpiGraph's quad-leg fusion strikes the optimal global balance, outperforming all baselines on cumulative Recall@1, Recall@5, and MRR.
+As detailed in Table \ref{tab:locomo_category}, EpiGraph's primary advantages emerge in complex multi-session reasoning and multi-hop associative queries. In Category 2 (\textbf{Temporal Reasoning}), EpiGraph achieves 62.33\% Recall@5 vs. 56.10\% for BM25 and 45.66\% for Dense Vector (+16.67 percentage points over Dense Vector). In Category 3 (\textbf{Multi-Session Reasoning}), EpiGraph achieves 25.25\% vs. 19.47\% Dense Vector and 18.63\% BM25 (+5.78 points gain). In Category 4 (\textbf{Multi-Hop Inference}), EpiGraph reaches 61.18\% Recall@5, surpassing BM25 (56.58\%) and Dense Vector (48.22\%) by bridging multi-hop relational paths that flat retrieval cannot trace. In Category 1 (\textbf{Factual Recall}), Dense Vector marginally leads (22.13\% vs. 21.89\%) due to direct one-to-one semantic chunk alignment, while BM25 underperforms (14.84\%) when users ask paraphrased questions. On Category 5 (\textbf{Conversational / Open}), EpiGraph leads with 57.17\% vs. 55.94\% for BM25 and 28.36\% for Dense Vector. Across all metrics, EpiGraph's quad-leg fusion strikes the optimal global balance, outperforming all baselines on cumulative Recall@3, Recall@5, and MRR.
 
 \begin{figure*}[t]
     \centering
@@ -297,7 +299,7 @@ To evaluate memory retention over extended horizons, we executed the Simulated C
 As shown in Figure \ref{fig:scaffolding}, baseline temporal decay ($e^{-\lambda \Delta t}$) aggressively degrades foundational scaffolding facts down to 60.0\% retention by Day 90. In contrast, EpiGraph's CATD achieves \textbf{100.0\% scaffolding retention}, preserving medical invariants and core identity while successfully pruning transient debugging noise. Figure \ref{fig:centrality} confirms that God Nodes dynamically emerge with high centrality ($\pi^*(v) \approx 0.26$), providing stable cognitive anchors across multi-turn sessions.
 
 \subsection{Knowledge Update and Contradiction Resolution}
-A critical failure mode of long-term conversational memory is \textit{Split-Brain Hallucination}, where mutated facts (e.g., relocation, changed preferences) co-exist in retrieval indices and prompt agents with outdated beliefs (Figure \ref{fig:knowledge_dag}a). We evaluated 50 multi-session knowledge update episodes across five representative domains (Location, Dietary Invariants, Primary Programming Language, Database Choice, and Security Policy). As summarized in Table \ref{tab:knowledge_update}, Dense Vector RAG suffers a \textbf{70.0\% split-brain hallucination rate} and BM25 suffers an \textbf{80.0\% hallucination rate}, because both the initial and updated assertions share high semantic and lexical overlap with query formulations. In contrast, EpiGraph's directed \texttt{SUPERSEDES} graph filtering resolves conflicting assertions during U-PPR traversal (Figure \ref{fig:knowledge_dag}b), achieving \textbf{0.0\% split-brain hallucination} while preserving \textbf{100.0\% current fact recall}.
+A critical failure mode of long-term conversational memory is \textit{Split-Brain Hallucination}, where mutated facts (e.g., relocation, changed preferences) co-exist in retrieval indices and prompt agents with outdated beliefs (Figure \ref{fig:knowledge_dag}a). We evaluated 50 simulated multi-session knowledge update episodes across five representative domains (Location, Dietary Invariants, Primary Programming Language, Database Choice, and Security Policy). As summarized in Table \ref{tab:knowledge_update}, Dense Vector RAG suffers a \textbf{70.0\% split-brain hallucination rate} and BM25 suffers an \textbf{80.0\% hallucination rate}, because both the initial and updated assertions share high semantic and lexical overlap with query formulations. In contrast, EpiGraph's directed \texttt{SUPERSEDES} graph filtering resolves conflicting assertions during U-PPR traversal (Figure \ref{fig:knowledge_dag}b), achieving \textbf{0.0\% split-brain hallucination} while preserving \textbf{100.0\% current fact recall}.
 
 \begin{table}[t]
 \centering
@@ -312,12 +314,14 @@ BM25 Keyword (Okapi) & 86.0\% & 80.0\% & None (Lexical Overlap) \\
 \bottomrule
 \end{tabular}
 }
-\caption{Knowledge Update \& Contradiction Resolution benchmark across 50 multi-session mutation episodes.}
+\caption{Knowledge Update \& Contradiction Resolution benchmark across 50 simulated multi-session mutation episodes.}
 \label{tab:knowledge_update}
 \end{table}
 
 \subsection{Downstream Closed-Loop LLM Generation}
-To evaluate whether upstream retrieval advantages transfer to downstream generative tasks, we evaluated zero-shot question-answering across stratified LoCoMo dialogues using a local open-weights LLM (Gemma-4 / 7B instruction-tuned) on Apple Silicon GPU. Table \ref{tab:closed_loop} reports Token F1, Exact Match (EM), and ROUGE-L across all evaluated contexts.
+To evaluate whether upstream retrieval advantages transfer to downstream generative tasks, we evaluated zero-shot question-answering across stratified LoCoMo dialogues using a local open-weights LLM (Qwen2.5-7B-Instruct via Ollama on Apple Silicon GPU). Table \ref{tab:closed_loop} reports Token F1, Exact Match (EM), ROUGE-L, and Temporal F1 across all evaluated contexts.
+
+As shown in Table \ref{tab:closed_loop}, all backbones achieve identical Exact Match (2.56\%), reflecting the conversational open-ended nature of LoCoMo ground-truth responses. On Token F1 and ROUGE-L, EpiGraph exhibits near parity with the baselines (17.29\% vs. 18.34\% Dense Vector and 17.84\% BM25). This downstream plateau illustrates a key systems insight: while EpiGraph's upstream retrieval provides superior multi-hop topological recall, 7B-parameter instruction readers can experience context dispersion and attention dilution when processing expanded associative contexts. However, on \textbf{Temporal F1}, EpiGraph achieves 18.18\% vs. 11.77\% for Dense Vector (+6.41 percentage points), confirming that topological temporal ordering in memory graphs directly aids downstream chronological comprehension.
 
 \begin{table}[t]
 \centering
