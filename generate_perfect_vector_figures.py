@@ -64,7 +64,7 @@ def create_fig6_architecture_svg():
   <rect x="25" y="20" width="1150" height="42" rx="16" fill="#EFF6FF"/>
   <rect x="25" y="50" width="1150" height="12" fill="#EFF6FF"/>
   <line x1="25" y1="62" x2="1175" y2="62" stroke="#DBEAFE" stroke-width="1.5"/>
-  <text x="50" y="47" class="section-title" fill="#1E40AF">⚡ WAKING STATE REFLEX (Real-Time Ingestion &amp; Hybrid Retrieval — Sub-30ms Budget)</text>
+  <text x="50" y="47" class="section-title" fill="#1E40AF">WAKING STATE REFLEX (Real-Time Ingestion &amp; Hybrid Retrieval — Sub-30ms Budget)</text>
 
   <!-- Sub-header labels -->
   <text x="50" y="85" font-family="sans-serif" font-size="11.5px" font-weight="700" fill="#64748B" letter-spacing="0.5">INGESTION STREAMING REFLEX</text>
@@ -160,7 +160,7 @@ def create_fig6_architecture_svg():
   <rect x="25" y="405" width="1150" height="42" rx="16" fill="#F3E8FF"/>
   <rect x="25" y="435" width="1150" height="12" fill="#F3E8FF"/>
   <line x1="25" y1="447" x2="1175" y2="447" stroke="#E9D5FF" stroke-width="1.5"/>
-  <text x="50" y="432" class="section-title" fill="#6B21A8">🌙 DREAMING STATE (Offline Synaptic Consolidation Worker — Background Every 6 Hours)</text>
+  <text x="50" y="432" class="section-title" fill="#6B21A8">DREAMING STATE CONSOLIDATION (Offline Synaptic Maintenance — Background 6h Cycle)</text>
 
   <!-- 4 Consolidation Pillars -->
   <!-- Pillar 1: DBSCAN -->
@@ -185,11 +185,11 @@ def create_fig6_architecture_svg():
     <text x="470" y="595" text-anchor="middle" class="card-accent" fill="#047857">Modular Graph Indexing</text>
   </g>
 
-  <!-- Pillar 3: God Node Centrality -->
+  <!-- Pillar 3: Macro-Hub Centrality -->
   <g filter="url(#shadow)">
     <rect x="630" y="465" width="260" height="165" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.2"/>
     <rect x="630" y="465" width="260" height="6" rx="3" fill="#D97706"/>
-    <text x="760" y="500" text-anchor="middle" class="card-title">3. God Node Centrality</text>
+    <text x="760" y="500" text-anchor="middle" class="card-title">3. Macro-Hub Centrality</text>
     <text x="760" y="530" text-anchor="middle" class="card-sub" font-size="12px">Global Stationary PageRank</text>
     <text x="760" y="555" text-anchor="middle" class="card-sub" font-size="12px">π*(v) ≥ μ + 1.2σ Population Cutoff</text>
     <rect x="655" y="578" width="210" height="26" rx="6" fill="#FFFBEB"/>
@@ -418,7 +418,7 @@ def create_fig8_spreading_activation_svg():
   <g filter="url(#shadow-uppr)">
     <rect x="420" y="210" width="360" height="150" rx="16" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2.8"/>
     <rect x="420" y="210" width="360" height="8" rx="4" fill="#D97706"/>
-    <text x="600" y="248" text-anchor="middle" class="node-title-lg" fill="#78350F">⭐ Epistemic Macro-Hub ("God Node")</text>
+    <text x="600" y="248" text-anchor="middle" class="node-title-lg" fill="#78350F">Epistemic Macro-Hub (Structural Anchor)</text>
     <text x="600" y="275" text-anchor="middle" class="node-sub-lg" fill="#92400E">Foundational Persona &amp; Constraint Invariant</text>
     <rect x="470" y="290" width="260" height="26" rx="6" fill="#FDE68A"/>
     <text x="600" y="308" text-anchor="middle" class="edge-label-box" fill="#78350F">Stationary Centrality π*(v) = 0.264</text>

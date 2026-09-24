@@ -28,17 +28,9 @@
 \title{\textbf{EpiGraph: Dynamic Usage-Weighted Topology and Synaptic Consolidation for Multi-Hop Agentic Memory}}
 
 \author{
-  \IEEEauthorblockN{Bhavyateja Potineni\IEEEauthorrefmark{1}\thanks{\IEEEauthorrefmark{1}Corresponding author: \texttt{bhavyateja.potineni@chase.com}}}
-  \IEEEauthorblockA{\texttt{bhavyateja.potineni@chase.com}}
-  \and
-  \IEEEauthorblockN{Lohit Giri}
-  \IEEEauthorblockA{\texttt{lohit.giri@chase.com}}
-  \and
-  \IEEEauthorblockN{Vadim Kutsyy}
-  \IEEEauthorblockA{\texttt{vadim.kutsyy@jpmchase.com}}
-  \and
-  \IEEEauthorblockN{Rajasekhar Pentakota}
-  \IEEEauthorblockA{\texttt{rajasekhar.pentakota@chase.com}}
+  \IEEEauthorblockN{Bhavyateja Potineni\IEEEauthorrefmark{1}\thanks{\IEEEauthorrefmark{1}Corresponding author: \texttt{bhavyateja.potineni@chase.com}}, Lohit Giri, Vadim Kutsyy, and Rajasekhar Pentakota}
+  \IEEEauthorblockA{\textit{Applied AI \& Machine Learning Research, JPMorgan Chase \& Co.}\\
+  \texttt{\{bhavyateja.potineni, lohit.giri, vadim.kutsyy, rajasekhar.pentakota\}@chase.com}}
 }
 
 \begin{document}
@@ -46,15 +38,7 @@
 \maketitle
 
 \begin{abstract}
-As autonomous Large Language Model (LLM) agents are deployed across sustained, multi-session environments, conventional memory architectures suffer from three fundamental pathologies: (1) \textbf{Associative Blindness}, wherein flat dense vector indexes fail to traverse multi-hop relational dependencies across distant interaction sessions; (2) \textbf{Scaffolding Amnesia}, where standard wall-clock temporal decay rules aggressively erase foundational user identity and architectural constraints; and (3) \textbf{Static Topology Stagnation}, where existing graph-augmented retrieval systems treat network structure as immutable, ignoring real-time usage dynamics and task utility.
-
-In this work, we propose \textbf{EpiGraph}, a biologically inspired, hierarchical hybrid memory architecture for autonomous agents. EpiGraph partitions memory operations into a low-latency streaming ingestion/retrieval ``Waking State'' and an asynchronous background ``Dreaming State'' consolidation cycle. We introduce three core theoretical contributions:
-\begin{enumerate}
-    \item \textbf{Usage-Modulated Personalized PageRank (U-PPR)}: A spreading activation algorithm where transition probabilities adapt via activity-dependent Hebbian plasticity, dynamically promoting persistent foundational entities into high-centrality \textbf{Epistemic Macro-Hubs (``God Nodes'')}.
-    \item \textbf{Consolidation-Activated Topology Decay (CATD)}: A synaptic forgetting rule executed strictly off the read path that scales retention half-life by topological load-bearing weight rather than wall-clock time, protecting foundational scaffolding with a cold-start grace period ($N_{\text{grace}} \ge 4$).
-    \item \textbf{Hierarchical Context Engineering}: A multi-leg retrieval pipeline fusing dense vectors, U-PPR graph traversal, and BM25 via dynamic intent-routed Reciprocal Rank Fusion (RRF).
-\end{enumerate}
-We evaluate EpiGraph locally across all 10 long-term multi-session conversations (1,982 evaluation QA pairs) in the \textbf{LoCoMo} benchmark. EpiGraph achieves a \textbf{+38.9\% relative improvement in Recall@5} (53.21\% vs. 38.29\%, paired $t=13.57, p < 0.001$) and a \textbf{+43.1\% improvement in MRR} (0.4203 vs. 0.2937, $p < 0.001$) over dense vector RAG, while significantly outperforming Okapi BM25 (+4.55 percentage points in Recall@5, paired $t=5.90, p < 0.001$; MRR 0.4203 vs. 0.4059, $p = 0.027$) and surpassing static graph RAG by $>6\times$ (53.21\% vs. 8.50\%, $p < 0.001$). On temporal reasoning, EpiGraph yields 62.33\% Recall@5 (+16.67 points over dense vectors, +6.23 points over BM25). In downstream closed-loop generation with a local 7B reader model, EpiGraph demonstrates token F1 parity (17.29\% vs. 18.34\%) alongside superior temporal generation precision (18.18\% vs. 11.77\%). In simulated knowledge mutation evaluations over 50 synthetic episodes, directed \texttt{SUPERSEDES} DAG filtering reduces split-brain hallucinations from 70.0\% down to \textbf{0.0\%}. Longitudinal 90-day continuous deployment simulations prove that CATD achieves \textbf{100.0\% scaffolding retention} where baseline temporal decay degrades to 60.0\%, all while maintaining sub-30ms retrieval latency.
+As autonomous Large Language Model (LLM) agents are deployed across sustained, multi-session environments, conventional memory architectures suffer from three fundamental pathologies: (1) \textit{Associative Blindness}, wherein flat dense vector indexes fail to traverse multi-hop relational dependencies across distant interaction sessions; (2) \textit{Scaffolding Amnesia}, where standard wall-clock temporal decay rules aggressively erase foundational user identity and architectural constraints; and (3) \textit{Static Topology Stagnation}, where existing graph-augmented retrieval systems treat network structure as immutable, ignoring real-time usage dynamics and task utility. In this work, we propose \textbf{EpiGraph}, a hierarchical hybrid memory architecture for autonomous agents grounded in Complementary Learning Systems (CLS) principles. EpiGraph partitions memory operations into a low-latency streaming ingestion and retrieval reflex (``Waking State'') and an asynchronous background synaptic consolidation cycle (``Dreaming State''). EpiGraph introduces Usage-Modulated Personalized PageRank (U-PPR), a spreading activation algorithm wherein transition probabilities adapt via activity-dependent Hebbian plasticity to dynamically promote persistent foundational entities into high-centrality Epistemic Macro-Hubs; Consolidation-Activated Topology Decay (CATD), a selective forgetting rule executed strictly off the read path that scales retention half-life by topological load-bearing weight rather than wall-clock recency, protected by a cold-start grace period ($N_{\text{grace}} \ge 4$); and hierarchical context engineering fusing dense vectors, U-PPR graph traversal, and BM25 via dynamic intent-routed Reciprocal Rank Fusion (RRF). We evaluate EpiGraph locally across all 10 long-term multi-session conversations (1,982 evaluation QA pairs) in the \textbf{LoCoMo} benchmark. EpiGraph achieves a \textbf{+38.9\% relative improvement in Recall@5} (53.21\% vs. 38.29\%, paired $t=13.57, p < 0.001$) and a \textbf{+43.1\% improvement in MRR} (0.4203 vs. 0.2937, $p < 0.001$) over dense vector RAG, while significantly outperforming Okapi BM25 (+4.55 percentage points in Recall@5, paired $t=5.90, p < 0.001$; MRR 0.4203 vs. 0.4059, $p = 0.027$) and surpassing static graph RAG by $>6\times$ (53.21\% vs. 8.50\%, $p < 0.001$). On temporal reasoning, EpiGraph yields 62.33\% Recall@5 (+16.67 points over dense vectors, +6.23 points over BM25). In downstream closed-loop generation with a local 7B reader model, EpiGraph demonstrates token F1 parity (17.29\% vs. 18.34\%) alongside superior temporal generation precision (18.18\% vs. 11.77\%). In simulated knowledge mutation evaluations over 50 synthetic episodes, directed \texttt{SUPERSEDES} DAG filtering reduces split-brain hallucinations from 70.0\% down to \textbf{0.0\%}. Longitudinal 90-day continuous deployment simulations prove that CATD achieves \textbf{100.0\% scaffolding retention} where baseline temporal decay degrades to 60.0\%, all while maintaining sub-30ms retrieval latency.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -103,7 +87,7 @@ Despite their strengths, these paradigms fail in continuous conversational agent
 \paragraph{Contributions.} In this paper, we present \textbf{EpiGraph}, a unified framework that overcomes these limitations:
 \begin{itemize}
     \item We formulate \textbf{Dynamic Hebbian Usage Plasticity} on memory graphs, where edge weights dynamically strengthen when co-retrieved during conversational tasks.
-    \item We introduce \textbf{Usage-Modulated Personalized PageRank (U-PPR)} and mathematically define the emergence of \textbf{Epistemic Macro-Hubs (``God Nodes'')} that anchor multi-hop context expansion.
+    \item We introduce \textbf{Usage-Modulated Personalized PageRank (U-PPR)} and mathematically define the emergence of \textbf{Epistemic Macro-Hubs} that anchor multi-hop context expansion.
     \item We formulate \textbf{Consolidation-Activated Topology Decay (CATD)}, solving Scaffolding Amnesia through load-bearing topological retention.
     \item We validate EpiGraph on the full 10-conversation, 1,982-question \textbf{LoCoMo} benchmark \cite{maharana2024evaluating}, demonstrating statistically significant gains ($p < 0.001$) across factual, temporal, and multi-session reasoning categories with sub-30ms query latency.
     \item We demonstrate that directed \texttt{SUPERSEDES} DAG filtering eliminates split-brain hallucinations (0.0\% vs. 70.0\%) across mutating long-term facts in synthetic simulation environments.
@@ -148,8 +132,8 @@ In the background (e.g., every 6 hours), an offline consolidation worker perform
 \begin{itemize}
     \item \textbf{Incremental Clustering}: Detects near-duplicate entities using HNSW-accelerated DBSCAN clustering ($O(N \log N)$), permanently replacing quadratic $O(N^2)$ pairwise matrices.
     \item \textbf{Louvain Community Partitioning}: Partitions the graph into thematic modules and generates stable community centroids.
-    \item \textbf{U-PPR Re-computation \& God Node Detection}: Computes stationary centrality distributions to identify macro-hubs.
-    \item \textbf{CATD Synaptic Pruning}: Prunes dead episodic chatter while shielding topological scaffolding.
+    \item \textbf{U-PPR Re-computation \& Macro-Hub Detection}: Computes stationary centrality distributions to identify macro-hubs.
+    \item \textbf{CATD Synaptic Pruning}: Prunes transient episodic chatter while shielding topological scaffolding.
 \end{itemize}
 
 \subsection{Distributed Systems Architecture \& Storage Engine Specs}
@@ -203,7 +187,7 @@ EpiGraph's design is engineered for low-latency production deployment using deco
 \begin{figure*}[t]
     \centering
     \includegraphics[width=0.78\textwidth]{figures/fig8_uppr_spreading_activation}
-    \caption{Usage-Modulated Personalized PageRank (U-PPR) spreading activation across multi-session dialogue turns, anchored by Epistemic Macro-Hubs (``God Nodes'').}
+    \caption{Usage-Modulated Personalized PageRank (U-PPR) spreading activation across multi-session dialogue turns, anchored by Epistemic Macro-Hubs.}
     \label{fig:spreading}
 \end{figure*}
 
@@ -219,7 +203,7 @@ W_{ij}(t) &= \alpha \cdot \cos(\mathbf{x}_i, \mathbf{x}_j) \\
 &\quad + \gamma \cdot R_{\text{type}}(r)
 \end{aligned}
 \end{equation}
-where $\{t_k\}$ are timestamps of conversational episodes wherein both $v_i$ and $v_j$ were simultaneously retrieved, and $R_{\text{type}}$ assigns typed structural priors (e.g., $R_{\text{SUPERSEDES}} = 2.5$).
+where $\alpha, \beta, \gamma \ge 0$ are non-negative weighting hyperparameters ($\alpha=0.4, \beta=0.4, \gamma=0.2$), $\{t_k\}_{k=1}^{M_{ij}(t)}$ are timestamps of conversational episodes wherein both $v_i$ and $v_j$ were simultaneously retrieved, and $R_{\text{type}}$ assigns structural priors (e.g., $R_{\text{SUPERSEDES}} = 2.5$).
 
 \subsection{Usage-Modulated Personalized PageRank (U-PPR)}
 The transition matrix $\mathbf{P}(t)$ is formed by row-normalizing $\mathbf{W}(t)$. As shown in Figure \ref{fig:spreading}, the personalization teleportation vector $\mathbf{p}(q, t)$ balances query seed relevance with historical access intensity:
@@ -229,21 +213,21 @@ p_i(q, t) &= \theta \cdot \frac{\max\left(0, \cos(\mathbf{x}_q, \mathbf{x}_i)\ri
 &\quad + (1 - \theta) \cdot \frac{\log(1 + n_i) \cdot e^{-\mu(t - t_i)}}{\sum_j \log(1 + n_j) \cdot e^{-\mu(t - t_j)}}
 \end{aligned}
 \end{equation}
-where $n_i = n_{\text{access}}(v_i)$ and $t_i = t_{\text{access}}(v_i)$. The stationary probability distribution $\mathbf{\pi}^*(q, t)$ satisfies the fixed-point equation:
+where $n_i = n_{\text{access}}(v_i)$, $t_i = t_{\text{access}}(v_i)$, $\theta \in [0, 1]$ (default $\theta = 0.60$), and $\mu = 0.05$ denotes access recency decay, with uniform fallback if the query denominator vanishes. The stationary probability distribution $\mathbf{\pi}^*(q, t)$ satisfies the fixed-point equation:
 \begin{equation}
 \mathbf{\pi}^*(q, t) = (1 - d)\left(\mathbf{I} - d \mathbf{P}(t)^\top\right)^{-1} \mathbf{p}(q, t)
 \end{equation}
-where $d = 0.85$ is the damping factor, solved via power iteration.
+where $d = 0.85$ is the damping factor, solved via power iteration. Convergence is guaranteed under the Perron-Frobenius theorem for column-stochastic $(1-d)\mathbf{p} + d \mathbf{P}^\top$.
 
-\subsection{Epistemic Macro-Hubs (``God Nodes'')}
-Let $\mathbf{\pi}_{\text{global}}^*(t)$ denote the global stationary centrality distribution computed using a uniform teleportation prior $\mathbf{p}_{\text{uniform}} = \frac{1}{|\mathcal{V}|}\mathbf{1}$. Nodes whose global centrality significantly exceeds the population distribution with high degree are classified as Epistemic Macro-Hubs:
+\subsection{Epistemic Macro-Hub Identification}
+Let $\mathbf{\pi}_{\text{global}}^*(t)$ denote the global stationary centrality distribution computed over $\mathcal{G}(t)$ using a uniform teleportation prior $\mathbf{p}_{\text{uniform}} = \frac{1}{|\mathcal{V}|}\mathbf{1}$. Nodes whose stationary global centrality significantly exceeds the population mean with requisite degree connectivity are classified as \textbf{Epistemic Macro-Hubs} (colloquially termed ``God Nodes'' during system development due to their omni-directional bridge centrality):
 \begin{equation}
 \begin{aligned}
 \mathcal{H}_{\text{macro}}(t) = \big\{ v_i \in \mathcal{V} \;\big|\; &\pi_{\text{global}}^*(v_i, t) \ge \mu_\pi + 1.2\sigma_\pi \\
 &\land \text{deg}(v_i) \ge 3 \big\}
 \end{aligned}
 \end{equation}
-These macro-hubs act as gravitational anchors preventing context displacement during multi-hop expansion.
+where $\mu_\pi = \frac{1}{|\mathcal{V}|}\sum_{v \in \mathcal{V}} \pi_{\text{global}}^*(v)$ and $\sigma_\pi$ is the standard deviation across $\mathbf{\pi}_{\text{global}}^*$. These macro-hubs serve as high-centrality topological transit anchors, preserving global semantic cohesion during spreading activation.
 
 \begin{figure*}[t]
     \centering
@@ -262,7 +246,7 @@ To protect foundational knowledge from wall-clock amnesia, decay occurs strictly
 &\quad + 0.3 \cdot \text{Prior}_{\text{type}}(v)
 \end{aligned}
 \end{equation}
-where $|\mathcal{V}| \cdot \pi_{\text{global}}^*(v)$ measures the relative centrality ratio (expected value $1.0$). The effective decay rate is modulated by topology:
+where $|\mathcal{V}| \cdot \pi_{\text{global}}^*(v)$ measures the relative centrality ratio (expected value $1.0$), and $\text{Prior}_{\text{type}}(v)$ reflects categorical invariance ($\text{identity}=1.0, \text{preference}=0.8, \text{episodic}=0.2$). The effective decay rate is modulated by topology:
 \begin{equation}
 \lambda_{\text{eff}}(v) = \lambda_{\text{base}}(\text{type}(v)) \cdot \exp\left(-2.0 \cdot \text{Score}_{\text{topology}}(v)\right)
 \end{equation}
@@ -290,7 +274,7 @@ protected by an $N_{\text{grace}} \ge 4$ cycle cold-start grace period.
     \hfill
     \begin{subfigure}[b]{0.38\textwidth}
         \includegraphics[width=\textwidth]{figures/fig2_god_node_centrality}
-        \caption{God Node centrality emergence via U-PPR.}
+        \caption{Macro-Hub centrality emergence via U-PPR.}
         \label{fig:centrality}
     \end{subfigure}
     \caption{Longitudinal evaluation under the 90-day continuous deployment protocol (SCDP).}
@@ -353,7 +337,7 @@ As detailed in Table \ref{tab:locomo_category}, EpiGraph's primary advantages em
 
 
 \subsection{Longitudinal Continuous Deployment Simulation (SCDP)}
-To evaluate memory retention over extended horizons, we executed the Simulated Continuous Deployment Protocol (SCDP), tracking 100 conversational episodes across 90 simulated days. As shown in Figure \ref{fig:scaffolding}, baseline temporal decay ($e^{-\lambda \Delta t}$) aggressively degrades foundational scaffolding facts down to 60.0\% retention by Day 90. In contrast, EpiGraph's CATD achieves \textbf{100.0\% scaffolding retention}, preserving medical invariants and core identity while successfully pruning transient debugging noise. Figure \ref{fig:centrality} confirms that God Nodes dynamically emerge with high centrality ($\pi^*(v) \approx 0.26$), providing stable cognitive anchors across multi-turn sessions.
+To evaluate memory retention over extended horizons, we executed the Simulated Continuous Deployment Protocol (SCDP), tracking 100 conversational episodes across 90 simulated days. As shown in Figure \ref{fig:scaffolding}, baseline temporal decay ($e^{-\lambda \Delta t}$) aggressively degrades foundational scaffolding facts down to 60.0\% retention by Day 90. In contrast, EpiGraph's CATD achieves \textbf{100.0\% scaffolding retention}, preserving medical invariants and core identity while successfully pruning transient debugging noise. Figure \ref{fig:centrality} confirms that Epistemic Macro-Hubs dynamically emerge with high centrality ($\pi^*(v) \approx 0.26$), providing stable cognitive anchors across multi-turn sessions.
 
 \begin{figure*}[t]
     \centering
@@ -415,7 +399,7 @@ To inspect associative retrieval under long conversational horizons, we trace a 
 The query focuses on restaurant recommendations and dish selections. When embedded into dense space, the nearest neighbors retrieved by Dense Vector RAG are descriptions of Chicago pizza crusts, dining atmosphere, and Italian pasta from Sessions 18 and 22. Because the query contains neither the term ``celiac'' nor ``gluten'', the cosine similarity between the query embedding and the Session 3 health constraint is only $0.28$ (ranked \#47 in the candidate pool, well outside the top-5 retrieval budget). Consequently, Dense Vector RAG fails to inject the dietary restriction into the reader prompt, leading the downstream LLM to enthusiastically recommend traditional wheat-flour deep-dish crust.
 
 \paragraph{EpiGraph Traversal via Epistemic Macro-Hubs.}
-In contrast, EpiGraph initializes teleportation seeds on the extracted entities \texttt{Giordano's}, \texttt{deep-dish pizza}, and \texttt{Italian trattoria}. During U-PPR spreading activation (Eq. 2--3), probability mass propagates along co-occurrence and associative edges to the user's central profile hub: the Epistemic Macro-Hub (``God Node'') representing \texttt{User Health Constraints}, which satisfies the macro-hub criterion ($\pi^*_{\text{global}} \ge \mu_\pi + 1.2\sigma_\pi$). From this topological bridge, activation flows with strong Hebbian edge weight directly into the target node \texttt{Celiac Disease: Gluten Prohibited}. Reciprocal Rank Fusion elevates this node into rank \#1 of the final prompt context. Downstream generation correctly issues an urgent cautionary advisory: \textit{``Because of your celiac disease, traditional deep-dish pizza at Giordano's contains gluten; verify if their dedicated gluten-free crust is available.''}
+In contrast, EpiGraph initializes teleportation seeds on the extracted entities \texttt{Giordano's}, \texttt{deep-dish pizza}, and \texttt{Italian trattoria}. During U-PPR spreading activation (Eq. 2--3), probability mass propagates along co-occurrence and associative edges to the user's central profile hub: the Epistemic Macro-Hub representing \texttt{User Health Constraints}, which satisfies the macro-hub criterion ($\pi^*_{\text{global}} \ge \mu_\pi + 1.2\sigma_\pi$). From this topological bridge, activation flows with strong Hebbian edge weight directly into the target node \texttt{Celiac Disease: Gluten Prohibited}. Reciprocal Rank Fusion elevates this node into rank \#1 of the final prompt context. Downstream generation correctly issues an urgent cautionary advisory: \textit{``Because of your celiac disease, traditional deep-dish pizza at Giordano's contains gluten; verify if their dedicated gluten-free crust is available.''}
 
 \subsection{Error Analysis and Failure Taxonomy}
 We conducted an error analysis across all 1,982 queries in LoCoMo to categorize instances where EpiGraph does not attain top retrieval rank:
@@ -440,7 +424,7 @@ Figure \ref{fig:analysis}b--c illustrates EpiGraph's retrieval stability across 
 
 \section{Conclusion}
 
-We presented \textbf{EpiGraph}, a hierarchical hybrid memory system for autonomous AI agents that unites dynamic network science with streaming context engineering. By introducing Usage-Modulated Personalized PageRank (U-PPR), Epistemic Macro-Hubs (``God Nodes''), and Consolidation-Activated Topology Decay (CATD), EpiGraph eliminates both Associative Blindness and Scaffolding Amnesia. Comprehensive local evaluation on the LoCoMo benchmark (1,982 questions across 10 multi-session conversations) establishes statistically significant empirical gains over dense vector, BM25, and static graph baselines, while maintaining sub-30ms retrieval latency. Longitudinal continuous deployment simulations, knowledge mutation experiments, and sensitivity analyses demonstrate that EpiGraph offers a principled, biologically grounded foundation for persistent agentic intelligence. Future work will investigate query-conditioned sub-graph decomposition and path-constrained traversal algorithms to further strengthen multi-hop compositional reasoning.
+We presented \textbf{EpiGraph}, a hierarchical hybrid memory system for autonomous AI agents that unites dynamic network science with streaming context engineering. By introducing Usage-Modulated Personalized PageRank (U-PPR), Epistemic Macro-Hubs, and Consolidation-Activated Topology Decay (CATD), EpiGraph eliminates both Associative Blindness and Scaffolding Amnesia. Comprehensive local evaluation on the LoCoMo benchmark (1,982 questions across 10 multi-session conversations) establishes statistically significant empirical gains over dense vector, BM25, and static graph baselines, while maintaining sub-30ms retrieval latency. Longitudinal continuous deployment simulations, knowledge mutation experiments, and sensitivity analyses demonstrate that EpiGraph offers a principled, biologically grounded foundation for persistent agentic intelligence. Future work will investigate query-conditioned sub-graph decomposition and path-constrained traversal algorithms to further strengthen multi-hop compositional reasoning.
 \enlargethispage{2\baselineskip}
 
 %\IEEEtriggeratref{6}

@@ -20,6 +20,8 @@ plt.rcParams.update({
     "font.family": "serif",
     "font.serif": ["Times New Roman", "DejaVu Serif", "STIXGeneral"],
     "font.size": 10,
+    "pdf.fonttype": 42,
+    "ps.fonttype": 42,
     "axes.titlesize": 11,
     "axes.titleweight": "bold",
     "axes.labelsize": 10,
@@ -61,6 +63,7 @@ OUR_COLOR = PALETTE["coral"]       # Highlight "EpiGraph (Proposed)"
 BASELINE_COLOR = PALETTE["cool_gray"]
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+RESULTS_DIR = os.path.join(BASE_DIR, "results")
 PAPER_FIG_DIR = os.path.join(BASE_DIR, "paper", "figures")
 RESULTS_FIG_DIR = os.path.join(BASE_DIR, "results", "figures")
 os.makedirs(PAPER_FIG_DIR, exist_ok=True)
@@ -128,11 +131,11 @@ def generate_fig2_centrality():
     noise = np.clip(noise, 0.005, 0.035)
 
     fig, ax = plt.subplots(figsize=(3.4, 2.5))
-    ax.plot(days, core1, label="God Node: User Identity", color=PALETTE["deep_teal"], linewidth=2.0)
-    ax.plot(days, core4, label="God Node: Core Arch", color=PALETTE["teal"], linewidth=1.8)
+    ax.plot(days, core1, label="Macro-Hub: User Identity", color=PALETTE["deep_teal"], linewidth=2.0)
+    ax.plot(days, core4, label="Macro-Hub: Core Arch", color=PALETTE["teal"], linewidth=1.8)
     ax.plot(days, noise, label="Transient Noise (Mean)", color=PALETTE["cool_gray"], linestyle=":", linewidth=1.4)
     
-    ax.set_title(r"God Node Emergence ($\pi^*(v)$)", pad=8)
+    ax.set_title(r"Macro-Hub Centrality ($\pi^*(v)$)", pad=8)
     ax.set_xlabel("Elapsed Time (Days)")
     ax.set_ylabel(r"Personalized PageRank $\pi^*(v)$")
     ax.set_ylim(-0.01, 0.30)
@@ -145,10 +148,38 @@ def generate_fig2_centrality():
 # ==============================================================================
 def generate_fig3_locomo():
     print("Generating Figure 3: LoCoMo Category Performance...")
-    categories = ["Cat 1\n(Factual)", "Cat 2\n(Temporal)", "Cat 3\n(Multi-Sess)", "Cat 4\n(Multi-Hop)"]
-    dense_vec = [22.84, 45.49, 17.97, 26.32]
-    bm25 = [15.29, 57.08, 18.97, 31.58]
-    epigraph = [22.56, 63.60, 22.45, 23.68]
+    locomo_path = os.path.join(RESULTS_DIR, "locomo_benchmark_results.json")
+    if os.path.exists(locomo_path):
+        with open(locomo_path, "r") as f:
+            data = json.load(f)
+        bd = data.get("category_breakdown", {})
+        dense_vec = [
+            bd.get("Cat 1 (Factual Recall)", {}).get("Dense_Vector_RAG", 22.13),
+            bd.get("Cat 2 (Temporal Reasoning)", {}).get("Dense_Vector_RAG", 45.66),
+            bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("Dense_Vector_RAG", 19.47),
+            bd.get("Cat 4 (Multi-Hop Inference)", {}).get("Dense_Vector_RAG", 48.22),
+            bd.get("Cat 5 (Conversational / Open)", {}).get("Dense_Vector_RAG", 28.36),
+        ]
+        bm25 = [
+            bd.get("Cat 1 (Factual Recall)", {}).get("BM25_Keyword", 14.84),
+            bd.get("Cat 2 (Temporal Reasoning)", {}).get("BM25_Keyword", 56.10),
+            bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("BM25_Keyword", 18.63),
+            bd.get("Cat 4 (Multi-Hop Inference)", {}).get("BM25_Keyword", 56.58),
+            bd.get("Cat 5 (Conversational / Open)", {}).get("BM25_Keyword", 55.94),
+        ]
+        epigraph = [
+            bd.get("Cat 1 (Factual Recall)", {}).get("EpiGraph_Proposed", 21.89),
+            bd.get("Cat 2 (Temporal Reasoning)", {}).get("EpiGraph_Proposed", 62.33),
+            bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("EpiGraph_Proposed", 25.25),
+            bd.get("Cat 4 (Multi-Hop Inference)", {}).get("EpiGraph_Proposed", 61.18),
+            bd.get("Cat 5 (Conversational / Open)", {}).get("EpiGraph_Proposed", 57.17),
+        ]
+        categories = ["Cat 1\n(Factual)", "Cat 2\n(Temporal)", "Cat 3\n(Multi-Sess)", "Cat 4\n(Multi-Hop)", "Cat 5\n(Open)"]
+    else:
+        categories = ["Cat 1\n(Factual)", "Cat 2\n(Temporal)", "Cat 3\n(Multi-Sess)", "Cat 4\n(Multi-Hop)"]
+        dense_vec = [22.13, 45.66, 19.47, 48.22]
+        bm25 = [14.84, 56.10, 18.63, 56.58]
+        epigraph = [21.89, 62.33, 25.25, 61.18]
 
     x = np.arange(len(categories))
     width = 0.26
@@ -534,9 +565,12 @@ if __name__ == "__main__":
     generate_fig3_locomo()
     generate_fig4_grace_period()
     generate_fig5_sensitivity()
-    generate_fig6_architecture()
-    generate_fig7_mutation_dag()
-    generate_fig8_spreading_activation()
+    # Figures 6, 7, 8 (System Architecture, Knowledge Mutation DAG, Spreading Activation)
+    # are generated with pixel-perfect Cairo/Pango vector geometry in generate_perfect_vector_figures.py
+    import generate_perfect_vector_figures
+    generate_perfect_vector_figures.create_fig6_architecture_svg()
+    generate_perfect_vector_figures.create_fig7_mutation_dag_svg()
+    generate_perfect_vector_figures.create_fig8_spreading_activation_svg()
     print("=" * 80)
-    print("ALL 8 PUBLICATION FIGURES GENERATED (BOTH VECTOR PDF & 300 DPI PNG)!")
+    print("ALL PUBLICATION FIGURES GENERATED (BOTH VECTOR PDF & 300 DPI PNG)!")
     print("=" * 80)

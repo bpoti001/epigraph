@@ -173,27 +173,27 @@ def run_scdp_simulation(output_dir: str = None):
             locomo_data = json.load(f)
         cat_bd = locomo_data.get("category_breakdown", {})
         dense_vec = [
-            cat_bd.get("Cat 1 (Factual Recall)", {}).get("Dense_Vector_RAG", 22.84),
-            cat_bd.get("Cat 2 (Temporal Reasoning)", {}).get("Dense_Vector_RAG", 45.49),
-            cat_bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("Dense_Vector_RAG", 17.97),
-            cat_bd.get("Cat 4 (Multi-Hop Inference)", {}).get("Dense_Vector_RAG", 26.32)
+            cat_bd.get("Cat 1 (Factual Recall)", {}).get("Dense_Vector_RAG", 22.13),
+            cat_bd.get("Cat 2 (Temporal Reasoning)", {}).get("Dense_Vector_RAG", 45.66),
+            cat_bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("Dense_Vector_RAG", 19.47),
+            cat_bd.get("Cat 4 (Multi-Hop Inference)", {}).get("Dense_Vector_RAG", 48.22)
         ]
         bm25 = [
-            cat_bd.get("Cat 1 (Factual Recall)", {}).get("BM25_Keyword", 15.29),
-            cat_bd.get("Cat 2 (Temporal Reasoning)", {}).get("BM25_Keyword", 57.08),
-            cat_bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("BM25_Keyword", 18.97),
-            cat_bd.get("Cat 4 (Multi-Hop Inference)", {}).get("BM25_Keyword", 31.58)
+            cat_bd.get("Cat 1 (Factual Recall)", {}).get("BM25_Keyword", 14.84),
+            cat_bd.get("Cat 2 (Temporal Reasoning)", {}).get("BM25_Keyword", 56.10),
+            cat_bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("BM25_Keyword", 18.63),
+            cat_bd.get("Cat 4 (Multi-Hop Inference)", {}).get("BM25_Keyword", 56.58)
         ]
         epigraph = [
-            cat_bd.get("Cat 1 (Factual Recall)", {}).get("EpiGraph_Proposed", 22.56),
-            cat_bd.get("Cat 2 (Temporal Reasoning)", {}).get("EpiGraph_Proposed", 63.60),
-            cat_bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("EpiGraph_Proposed", 22.45),
-            cat_bd.get("Cat 4 (Multi-Hop Inference)", {}).get("EpiGraph_Proposed", 23.68)
+            cat_bd.get("Cat 1 (Factual Recall)", {}).get("EpiGraph_Proposed", 21.89),
+            cat_bd.get("Cat 2 (Temporal Reasoning)", {}).get("EpiGraph_Proposed", 62.33),
+            cat_bd.get("Cat 3 (Multi-Session Reasoning)", {}).get("EpiGraph_Proposed", 25.25),
+            cat_bd.get("Cat 4 (Multi-Hop Inference)", {}).get("EpiGraph_Proposed", 61.18)
         ]
     else:
-        dense_vec = [22.84, 45.49, 17.97, 26.32]
-        bm25 = [15.29, 57.08, 18.97, 31.58]
-        epigraph = [22.56, 63.60, 22.45, 23.68]
+        dense_vec = [22.13, 45.66, 19.47, 48.22]
+        bm25 = [14.84, 56.10, 18.63, 56.58]
+        epigraph = [21.89, 62.33, 25.25, 61.18]
 
     categories = ["Cat 1\n(Factual)", "Cat 2\n(Temporal)", "Cat 3\n(Multi-Session)", "Cat 4\n(Multi-Hop)"]
 
