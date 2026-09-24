@@ -8,13 +8,16 @@
 \usepackage{microtype}
 \usepackage{subcaption}
 \usepackage{cite}
+\usepackage{authblk}
 
 \title{\textbf{EpiGraph: Dynamic Usage-Weighted Topology and Synaptic Consolidation for Multi-Hop Agentic Memory}}
 
-\author{
-  \textbf{Teja P.}\\
-  \texttt{teja@antigravity.ai}
-}
+\author[1]{\textbf{Bhavyateja Potineni}\thanks{Corresponding author: \texttt{bhavyateja.potineni@chase.com}}}
+\author[1]{\textbf{Lohit Giri}}
+\author[1]{\textbf{Vadim Kutsyy}}
+\author[1]{\textbf{Rajasekhar Pentakota}}
+\affil[1]{JPMorgan Chase \& Co.}
+\affil[ ]{\texttt{\{bhavyateja.potineni, lohit.giri, rajasekhar.pentakota\}@chase.com}, \texttt{vadim.kutsyy@jpmchase.com}}
 
 \date{\today}
 
@@ -245,7 +248,7 @@ BM25 Keyword (Okapi) & 86.0\% & 80.0\% & None (Lexical Overlap) \\
 \end{table}
 
 \subsection{Downstream Closed-Loop LLM Generation}
-To evaluate whether upstream retrieval advantages transfer to downstream generative tasks, we evaluated zero-shot question-answering across stratified LoCoMo dialogues using a local 7B-parameter LLM (Qwen2.5-VL-7B) on Apple Silicon GPU. Table \ref{tab:closed_loop} reports Token F1, Exact Match (EM), and ROUGE-L across all evaluated contexts.
+To evaluate whether upstream retrieval advantages transfer to downstream generative tasks, we evaluated zero-shot question-answering across stratified LoCoMo dialogues using a local open-weights LLM (Gemma-4 / 7B instruction-tuned) on Apple Silicon GPU. Table \ref{tab:closed_loop} reports Token F1, Exact Match (EM), and ROUGE-L across all evaluated contexts.
 
 \begin{table}[h]
 \centering

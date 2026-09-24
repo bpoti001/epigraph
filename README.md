@@ -143,7 +143,7 @@ docker compose up -d
 ```bibtex
 @article{epigraph2026,
   title   = {EpiGraph: Dynamic Usage-Weighted Topology and Synaptic Consolidation for Multi-Hop Agentic Memory},
-  author  = {P., Teja},
+  author  = {Potineni, Bhavyateja and Giri, Lohit and Kutsyy, Vadim and Pentakota, Rajasekhar},
   journal = {arXiv preprint arXiv:2609.xxxxx},
   year    = {2026}
 }
