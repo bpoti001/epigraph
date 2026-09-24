@@ -19,8 +19,8 @@ import os
 import sys
 import json
 from datetime import datetime
-
-REPORT_PATH = "results/papervizagent_report.md"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+REPORT_PATH = os.path.join(BASE_DIR, "results", "papervizagent_report.md")
 
 FIGURES_EVAL = [
     {

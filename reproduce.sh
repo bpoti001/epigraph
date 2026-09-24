@@ -5,10 +5,7 @@ echo "=========================================================="
 echo "    EpiGraph: End-to-End One-Click Reproduction Suite     "
 echo "=========================================================="
 
-PYTHON_BIN="/Users/tejap/anaconda3/bin/python3"
-if ! command -v "$PYTHON_BIN" &> /dev/null; then
-    PYTHON_BIN="python3"
-fi
+PYTHON_BIN="${PYTHON:-python3}"
 
 echo "[1/4] Verifying Graph Scaling Stress Test..."
 $PYTHON_BIN run_scaling_benchmark.py

@@ -13,13 +13,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 from typing import Dict, List, Tuple
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, BASE_DIR)
 
 from src.embeddings import EmbeddingEngine
 from src.epigraph_pipeline import EpiGraphPipeline
 from run_locomo_benchmark import evaluate_retrieval
 
-def run_sensitivity_sweep(data_path: str = "data/locomo/locomo10.json", output_dir: str = "results"):
+def run_sensitivity_sweep(data_path: str = None, output_dir: str = None):
+    if data_path is None:
+        data_path = os.path.join(BASE_DIR, "data", "locomo", "locomo10.json")
+    if output_dir is None:
+        output_dir = os.path.join(BASE_DIR, "results")
     print("=" * 80)
     print("PHASE 7: RUNNING HYPERPARAMETER SENSITIVITY SWEEP")
     print("Sweeping PageRank Damping (d in [0.65, 0.95]) and RRF Smoothing (k in [20, 100])")

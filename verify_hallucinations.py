@@ -4,18 +4,21 @@ Automated Hallucination & Consistency Verification Script
 Verifies every single empirical number in paper/main.tex against raw benchmark results.
 """
 
+import os
 import json
 import re
 import sys
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def verify():
-    with open("results/locomo_benchmark_results.json") as f:
+    with open(os.path.join(BASE_DIR, "results", "locomo_benchmark_results.json")) as f:
         locomo = json.load(f)
     
-    with open("results/scdp_simulation_results.json") as f:
+    with open(os.path.join(BASE_DIR, "results", "scdp_simulation_results.json")) as f:
         scdp = json.load(f)
 
-    with open("paper/main.tex") as f:
+    with open(os.path.join(BASE_DIR, "paper", "main.tex")) as f:
         tex = f.read()
 
     errors = []
@@ -86,7 +89,7 @@ def verify():
 
     print("\n=== 4. VERIFYING ABLATION METRICS ===")
     try:
-        with open("results/rrf_ablation_results.json") as f:
+        with open(os.path.join(BASE_DIR, "results", "rrf_ablation_results.json")) as f:
             rrf_abl = json.load(f)
         for label, val_str in [("Dynamic MS R5", f"{rrf_abl['EpiGraph_Dynamic_Intent']['Cat3_MultiSession_R5']:.2f}\\%"),
                                ("Static MS R5", f"{rrf_abl['EpiGraph_Static_RRF']['Cat3_MultiSession_R5']:.2f}\\%"),
@@ -102,7 +105,7 @@ def verify():
 
     print("\n=== 5. VERIFYING KNOWLEDGE UPDATE & CONTRADICTION RESOLUTION (TABLE 3) ===")
     try:
-        with open("results/knowledge_update_results.json") as f:
+        with open(os.path.join(BASE_DIR, "results", "knowledge_update_results.json")) as f:
             ku_data = json.load(f)
         for s_key in ["Dense_Vector_RAG", "BM25_Keyword", "EpiGraph_SUPERSEDES"]:
             rec_str = f"{ku_data[s_key]['Current_Fact_Recall']:.1f}\\%"
@@ -122,7 +125,7 @@ def verify():
 
     print("\n=== 6. VERIFYING CLOSED-LOOP DOWNSTREAM QA (TABLE 4) ===")
     try:
-        with open("results/closed_loop_qa_results.json") as f:
+        with open(os.path.join(BASE_DIR, "results", "closed_loop_qa_results.json")) as f:
             qa_data = json.load(f)["summary"]
         for s_key in ["Dense_Vector_RAG", "BM25_Keyword", "EpiGraph_Proposed"]:
             f1_str = f"{qa_data[s_key]['Token_F1']:.2f}\\%"
@@ -140,7 +143,7 @@ def verify():
 
     print("\n=== 7. VERIFYING SENSITIVITY SWEEP METRICS ===")
     try:
-        with open("results/sensitivity_analysis_results.json") as f:
+        with open(os.path.join(BASE_DIR, "results", "sensitivity_analysis_results.json")) as f:
             sens_data = json.load(f)
         d_085 = f"{sens_data['damping_sweep']['0.85']['Recall@5']:.2f}\\%"
         if d_085 in tex:
@@ -153,7 +156,7 @@ def verify():
 
     print("\n=== 8. VERIFYING GRAPH SCALING STRESS TEST METRICS ===")
     try:
-        with open("results/graph_scaling_results.json") as f:
+        with open(os.path.join(BASE_DIR, "results", "graph_scaling_results.json")) as f:
             scaling_data = json.load(f)
         lat_1k = scaling_data[2]['latency_ms']
         lat_10k = scaling_data[5]['latency_ms']

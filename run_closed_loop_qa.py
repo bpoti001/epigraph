@@ -15,7 +15,8 @@ import urllib.request
 import numpy as np
 from typing import Dict, List, Tuple, Any
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, BASE_DIR)
 
 from src.embeddings import EmbeddingEngine
 from src.epigraph_pipeline import EpiGraphPipeline
@@ -105,7 +106,11 @@ def query_local_llm(context_text: str, question: str, model: str = "qwen2.5vl:7b
     except Exception as e:
         return ""
 
-def run_closed_loop_evaluation(data_path: str = "data/locomo/locomo10.json", max_q_per_conv: int = 5, output_dir: str = "results"):
+def run_closed_loop_evaluation(data_path: str = None, max_q_per_conv: int = 5, output_dir: str = None):
+    if data_path is None:
+        data_path = os.path.join(BASE_DIR, "data", "locomo", "locomo10.json")
+    if output_dir is None:
+        output_dir = os.path.join(BASE_DIR, "results")
     print("=" * 80)
     print("PHASE 5: RUNNING CLOSED-LOOP DOWNSTREAM LLM GENERATION BENCHMARK")
     print("Evaluating Generative Token F1, Exact Match (EM), and ROUGE-L on LoCoMo")

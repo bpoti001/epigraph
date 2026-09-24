@@ -60,8 +60,9 @@ PALETTE = {
 OUR_COLOR = PALETTE["coral"]       # Highlight "EpiGraph (Proposed)"
 BASELINE_COLOR = PALETTE["cool_gray"]
 
-PAPER_FIG_DIR = "paper/figures"
-RESULTS_FIG_DIR = "results/figures"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PAPER_FIG_DIR = os.path.join(BASE_DIR, "paper", "figures")
+RESULTS_FIG_DIR = os.path.join(BASE_DIR, "results", "figures")
 os.makedirs(PAPER_FIG_DIR, exist_ok=True)
 os.makedirs(RESULTS_FIG_DIR, exist_ok=True)
 
@@ -81,7 +82,7 @@ def save_dual(fig, basename: str):
 def generate_fig1_scaffolding():
     print("Generating Figure 1: Scaffolding Survival...")
     # Load SCDP simulation trajectory
-    with open("results/scdp_simulation_results.json") as f:
+    with open(os.path.join(BASE_DIR, "results", "scdp_simulation_results.json")) as f:
         scdp = json.load(f)
     
     days = np.arange(91)
@@ -202,7 +203,7 @@ def generate_fig4_grace_period():
 # ==============================================================================
 def generate_fig5_sensitivity():
     print("Generating Figure 5: Hyperparameter Sensitivity Landscape...")
-    with open("results/sensitivity_analysis_results.json") as f:
+    with open(os.path.join(BASE_DIR, "results", "sensitivity_analysis_results.json")) as f:
         sens = json.load(f)
 
     d_data = sens["damping_sweep"]

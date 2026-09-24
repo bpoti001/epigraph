@@ -9,9 +9,11 @@ from typing import Dict, List, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from src.graph_memory import DynamicCognitiveGraph
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-def run_scdp_simulation(output_dir: str = "results"):
+def run_scdp_simulation(output_dir: str = None):
+    if output_dir is None:
+        output_dir = os.path.join(BASE_DIR, "results")
     print("=" * 80)
     print("RUNNING LONGITUDINAL SIMULATED CONTINUOUS DEPLOYMENT PROTOCOL (SCDP)")
     print("Simulating 100 Conversational Episodes over 90 Days across 4 Domains")

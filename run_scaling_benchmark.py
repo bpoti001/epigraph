@@ -1,8 +1,11 @@
+import os
 import time
 import json
 import numpy as np
 import networkx as nx
 from src.graph_memory import DynamicCognitiveGraph
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def benchmark_graph_scaling():
     print("=== Running EpiGraph U-PPR Graph Scaling Stress Test ===")
@@ -48,9 +51,10 @@ def benchmark_graph_scaling():
         results.append(entry)
         print(f"|V| = {n:5d} nodes, |E| = {num_edges:6d} edges -> Latency: {elapsed:6.2f} ms ({qps:5.1f} queries/sec)")
 
-    with open("results/graph_scaling_results.json", "w") as f:
+    out_file = os.path.join(BASE_DIR, "results", "graph_scaling_results.json")
+    with open(out_file, "w") as f:
         json.dump(results, f, indent=2)
-    print("Saved results to results/graph_scaling_results.json")
+    print(f"Saved results to {out_file}")
 
 if __name__ == "__main__":
     benchmark_graph_scaling()

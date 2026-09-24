@@ -4,10 +4,14 @@ Ablation Study: Dynamic Intent Routing vs. Static RRF & Component Contributions
 Evaluates on all 496 LoCoMo QA pairs to generate empirical evidence for Section 6.
 """
 
+import os
 import json
 import time
 import numpy as np
 from typing import Dict, List, Any
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 from src.embeddings import EmbeddingEngine
 from src.epigraph_pipeline import EpiGraphPipeline
 from run_locomo_benchmark import evaluate_retrieval
@@ -29,7 +33,7 @@ class NoPlasticityEpiGraph(EpiGraphPipeline):
         return super().retrieve(query, top_k=top_k, record_usage=False)
 
 def run_ablation():
-    with open("data/locomo/locomo10.json") as f:
+    with open(os.path.join(BASE_DIR, "data", "locomo", "locomo10.json")) as f:
         samples = json.load(f)
 
     print(f"Loaded {len(samples)} conversations from LoCoMo dataset.")
@@ -89,9 +93,10 @@ def run_ablation():
         print(f"{s_name:<25} | {s_data['Recall@1']:>7.2f}% | {s_data['Recall@5']:>7.2f}% | {s_data['MRR']:>7.4f} | {s_data['Cat2_Temporal_R5']:>9.2f}% | {s_data['Cat3_MultiSession_R5']:>9.2f}%")
     print("=" * 80)
 
-    with open("results/rrf_ablation_results.json", "w") as f:
+    out_file = os.path.join(BASE_DIR, "results", "rrf_ablation_results.json")
+    with open(out_file, "w") as f:
         json.dump(summary, f, indent=2)
-    print("Saved results to results/rrf_ablation_results.json")
+    print(f"Saved results to {out_file}")
 
 if __name__ == "__main__":
     run_ablation()

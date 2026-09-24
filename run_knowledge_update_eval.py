@@ -60,7 +60,11 @@ MUTATION_EPISODES = [
     }
 ]
 
-def run_knowledge_update_benchmark(num_trials: int = 50, output_dir: str = "results"):
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def run_knowledge_update_benchmark(num_trials: int = 50, output_dir: str = None):
+    if output_dir is None:
+        output_dir = os.path.join(BASE_DIR, "results")
     print("=" * 80)
     print("PHASE 6: RUNNING KNOWLEDGE UPDATE & CONTRADICTION RESOLUTION (SUPERSEDES)")
     print("Benchmarking Split-Brain Hallucination Rate across Mutating Long-Term Facts")

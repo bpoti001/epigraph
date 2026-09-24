@@ -16,12 +16,13 @@ import json
 import re
 from datetime import datetime
 
-PAPER_PATH = "paper/main.tex"
-BIB_PATH = "paper/references.bib"
-BENCHMARK_RESULTS = "results/locomo_benchmark_results.json"
-SCDP_RESULTS = "results/scdp_simulation_results.json"
-SENSITIVITY_RESULTS = "results/sensitivity_analysis_results.json"
-OUTPUT_REPORT = "results/scholarpeer_review_report.md"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PAPER_PATH = os.path.join(BASE_DIR, "paper", "main.tex")
+BIB_PATH = os.path.join(BASE_DIR, "paper", "references.bib")
+BENCHMARK_RESULTS = os.path.join(BASE_DIR, "results", "locomo_benchmark_results.json")
+SCDP_RESULTS = os.path.join(BASE_DIR, "results", "scdp_simulation_results.json")
+SENSITIVITY_RESULTS = os.path.join(BASE_DIR, "results", "sensitivity_analysis_results.json")
+OUTPUT_REPORT = os.path.join(BASE_DIR, "results", "scholarpeer_review_report.md")
 
 def load_text(path):
     with open(path, "r", encoding="utf-8") as f:
