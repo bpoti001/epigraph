@@ -1,0 +1,32 @@
+================================================================================
+ARXIV SUBMISSION METADATA CARD (ENGRAMRAG)
+================================================================================
+
+1. SUBMISSION PACKAGE FILE:
+   Path: /Users/tejap/memory_paper/engramrag_arxiv_package.tar.gz
+   (Drag-and-drop or upload this single file directly to the arXiv file upload page)
+
+2. TITLE:
+   EngramRAG: Dynamic Usage-Weighted Topology and Synaptic Consolidation for Multi-Hop Agentic Memory
+
+3. AUTHORS:
+   Bhavyateja Potineni, Lohit Giri, Vadim Kutsyy, Rajasekhar Pentakota
+
+4. PRIMARY CLASSIFICATION:
+   cs.AI (Artificial Intelligence)
+
+5. SECONDARY / CROSS-LIST CLASSIFICATIONS:
+   cs.IR (Information Retrieval)
+   cs.CL (Computation and Language)
+   cs.MA (Multi-Agent Systems)
+
+6. COMMENTS:
+   8 pages, 6 figures, 4 tables. Code and reproduction suite: https://github.com/bpoti001/epigraph
+
+7. LICENSE:
+   arXiv.org perpetual, non-exclusive license to distribute this article
+   (or Creative Commons Attribution 4.0 International - CC-BY 4.0)
+
+8. ABSTRACT (Clean text ready to paste):
+As autonomous Large Language Model (LLM) agents are deployed across sustained, multi-session environments, conventional memory architectures suffer from three fundamental pathologies: (1) Associative Blindness, wherein flat dense vector indexes fail to traverse multi-hop relational dependencies across distant interaction sessions; (2) Scaffolding Amnesia, where standard wall-clock temporal decay rules aggressively erase foundational user identity and architectural constraints; and (3) Static Topology Stagnation, where existing graph-augmented retrieval systems treat network structure as immutable, ignoring real-time usage dynamics and task utility. In this work, we propose EngramRAG, a hierarchical hybrid memory architecture for autonomous agents grounded in Complementary Learning Systems (CLS) principles. EngramRAG partitions memory operations into a low-latency streaming ingestion and retrieval reflex ("Waking State") and an asynchronous background synaptic consolidation cycle ("Dreaming State"). EngramRAG introduces Usage-Modulated Personalized PageRank (U-PPR), a spreading activation algorithm wherein transition probabilities adapt via activity-dependent Hebbian plasticity to dynamically promote persistent foundational entities into high-centrality Epistemic Macro-Hubs; Consolidation-Activated Topology Decay (CATD), a selective forgetting rule executed strictly off the read path that scales retention half-life by topological load-bearing weight rather than wall-clock recency, protected by a cold-start grace period (N_grace >= 4); and hierarchical context engineering fusing dense vectors, U-PPR graph traversal, and BM25 via dynamic intent-routed Reciprocal Rank Fusion (RRF). We evaluate EngramRAG locally across all 10 long-term multi-session conversations (1,982 evaluation QA pairs) in the LoCoMo benchmark. EngramRAG achieves a +38.9% relative improvement in Recall@5 (53.21% vs. 38.29%, paired t=13.57, p < 0.001) and a +43.1% improvement in MRR (0.4203 vs. 0.2937, p < 0.001) over dense vector RAG, while significantly outperforming Okapi BM25 (+4.55 percentage points in Recall@5, paired t=5.90, p < 0.001; MRR 0.4203 vs. 0.4059, p = 0.027) and surpassing static graph RAG by >6x (53.21% vs. 8.50%, p < 0.001). On temporal reasoning, EngramRAG yields 62.33% Recall@5 (+16.67 points over dense vectors, +6.23 points over BM25). In downstream closed-loop generation with a local 7B reader model, EngramRAG demonstrates token F1 parity (17.29% vs. 18.34%) alongside superior temporal generation precision (18.18% vs. 11.77%). In simulated knowledge mutation evaluations over 50 synthetic episodes, directed SUPERSEDES DAG filtering reduces split-brain hallucinations from 70.0% down to 0.0%. Longitudinal 90-day continuous deployment simulations prove that CATD achieves 100.0% scaffolding retention where baseline temporal decay degrades to 60.0%, all while maintaining sub-30ms retrieval latency.
+================================================================================
