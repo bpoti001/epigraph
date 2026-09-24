@@ -1,12 +1,12 @@
-# EpiGraph: Dynamic Usage-Weighted Topology and Synaptic Consolidation for Multi-Hop Agentic Memory
+# EngramRAG: Dynamic Usage-Weighted Topology and Synaptic Consolidation for Multi-Hop Agentic Memory
 
-[![Verification](https://img.shields.io/badge/Verification-67%2F67%20Checks%20Passed-brightgreen.svg)](#empirical-verification)
+[![Verification](https://img.shields.io/badge/Verification-68%2F68%20Checks%20Passed-brightgreen.svg)](#empirical-verification)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Benchmark](https://img.shields.io/badge/Benchmark-LoCoMo%20%7C%20LongMemEval-orange.svg)](#empirical-evaluation)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 Official implementation and evaluation suite for the research paper:  
-**"EpiGraph: Dynamic Usage-Weighted Topology and Synaptic Consolidation for Multi-Hop Agentic Memory"** (arXiv pre-print, `cs.AI` / `cs.CL`).
+**"EngramRAG: Dynamic Usage-Weighted Topology and Synaptic Consolidation for Multi-Hop Agentic Memory"** (arXiv pre-print, `cs.AI` / `cs.IR` / `cs.CL`).
 
 ---
 

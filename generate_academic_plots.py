@@ -96,7 +96,7 @@ def generate_fig1_scaffolding():
     baseline_ret[30:] = 60.0
 
     fig, ax = plt.subplots(figsize=(3.4, 2.5))
-    ax.plot(days, catd_ret, label="EpiGraph (CATD + Grace)", color=PALETTE["teal"], linewidth=2.2)
+    ax.plot(days, catd_ret, label="EngramRAG (CATD + Grace)", color=PALETTE["teal"], linewidth=2.2)
     ax.plot(days, baseline_ret, label=r"Baseline Decay ($e^{-\lambda \Delta t}$)", color=PALETTE["coral"], linestyle="--", linewidth=1.8)
     ax.axvline(x=30, color=PALETTE["gold"], linestyle=":", linewidth=1.5, label="Fact Mutation (Day 30)")
     
@@ -187,7 +187,7 @@ def generate_fig3_locomo():
     fig, ax = plt.subplots(figsize=(3.4, 2.5))
     rects1 = ax.bar(x - width, dense_vec, width * 0.9, label="Dense Vector", color=PALETTE["cool_gray"], edgecolor="white", linewidth=0.5)
     rects2 = ax.bar(x, bm25, width * 0.9, label="BM25 Keyword", color=PALETTE["sand"], edgecolor="white", linewidth=0.5)
-    rects3 = ax.bar(x + width, epigraph, width * 0.9, label="EpiGraph", color=PALETTE["coral"], edgecolor="white", linewidth=0.5)
+    rects3 = ax.bar(x + width, epigraph, width * 0.9, label="EngramRAG", color=PALETTE["coral"], edgecolor="white", linewidth=0.5)
 
     # Direct value annotations on bars (Orchestra-Research best practice)
     for rects, scores in [(rects1, dense_vec), (rects2, bm25), (rects3, epigraph)]:
@@ -423,7 +423,7 @@ def generate_fig7_mutation_dag():
     ax2.axis("off")
     ax2.set_xlim(0, 10)
     ax2.set_ylim(0, 10)
-    ax2.set_title("(b) EpiGraph: Directed SUPERSEDES DAG\n(0.0% Hallucination, 100% Recall)",
+    ax2.set_title("(b) EngramRAG: Directed SUPERSEDES DAG\n(0.0% Hallucination, 100% Recall)",
                   fontsize=8.0, fontweight="bold", color="#065F46", pad=6)
 
     # Query Card

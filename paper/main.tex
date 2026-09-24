@@ -25,7 +25,7 @@
 \setcounter{totalnumber}{6}
 \setcounter{dbltopnumber}{4}
 
-\title{\textbf{EpiGraph: Dynamic Usage-Weighted Topology and Synaptic Consolidation for Multi-Hop Agentic Memory}}
+\title{\textbf{EngramRAG: Dynamic Usage-Weighted Topology and Synaptic Consolidation for Multi-Hop Agentic Memory}}
 
 \author{
   \IEEEauthorblockN{Bhavyateja Potineni\IEEEauthorrefmark{1}\thanks{\IEEEauthorrefmark{1}Corresponding author: \texttt{bhavyateja.potineni@gmail.com}}, Lohit Giri, Vadim Kutsyy, and Rajasekhar Pentakota}
@@ -38,7 +38,7 @@
 \maketitle
 
 \begin{abstract}
-As autonomous Large Language Model (LLM) agents are deployed across sustained, multi-session environments, conventional memory architectures suffer from three fundamental pathologies: (1) \textit{Associative Blindness}, wherein flat dense vector indexes fail to traverse multi-hop relational dependencies across distant interaction sessions; (2) \textit{Scaffolding Amnesia}, where standard wall-clock temporal decay rules aggressively erase foundational user identity and architectural constraints; and (3) \textit{Static Topology Stagnation}, where existing graph-augmented retrieval systems treat network structure as immutable, ignoring real-time usage dynamics and task utility. In this work, we propose \textbf{EpiGraph}, a hierarchical hybrid memory architecture for autonomous agents grounded in Complementary Learning Systems (CLS) principles. EpiGraph partitions memory operations into a low-latency streaming ingestion and retrieval reflex (``Waking State'') and an asynchronous background synaptic consolidation cycle (``Dreaming State''). EpiGraph introduces Usage-Modulated Personalized PageRank (U-PPR), a spreading activation algorithm wherein transition probabilities adapt via activity-dependent Hebbian plasticity to dynamically promote persistent foundational entities into high-centrality Epistemic Macro-Hubs; Consolidation-Activated Topology Decay (CATD), a selective forgetting rule executed strictly off the read path that scales retention half-life by topological load-bearing weight rather than wall-clock recency, protected by a cold-start grace period ($N_{\text{grace}} \ge 4$); and hierarchical context engineering fusing dense vectors, U-PPR graph traversal, and BM25 via dynamic intent-routed Reciprocal Rank Fusion (RRF). We evaluate EpiGraph locally across all 10 long-term multi-session conversations (1,982 evaluation QA pairs) in the \textbf{LoCoMo} benchmark. EpiGraph achieves a \textbf{+38.9\% relative improvement in Recall@5} (53.21\% vs. 38.29\%, paired $t=13.57, p < 0.001$) and a \textbf{+43.1\% improvement in MRR} (0.4203 vs. 0.2937, $p < 0.001$) over dense vector RAG, while significantly outperforming Okapi BM25 (+4.55 percentage points in Recall@5, paired $t=5.90, p < 0.001$; MRR 0.4203 vs. 0.4059, $p = 0.027$) and surpassing static graph RAG by $>6\times$ (53.21\% vs. 8.50\%, $p < 0.001$). On temporal reasoning, EpiGraph yields 62.33\% Recall@5 (+16.67 points over dense vectors, +6.23 points over BM25). In downstream closed-loop generation with a local 7B reader model, EpiGraph demonstrates token F1 parity (17.29\% vs. 18.34\%) alongside superior temporal generation precision (18.18\% vs. 11.77\%). In simulated knowledge mutation evaluations over 50 synthetic episodes, directed \texttt{SUPERSEDES} DAG filtering reduces split-brain hallucinations from 70.0\% down to \textbf{0.0\%}. Longitudinal 90-day continuous deployment simulations prove that CATD achieves \textbf{100.0\% scaffolding retention} where baseline temporal decay degrades to 60.0\%, all while maintaining sub-30ms retrieval latency.
+As autonomous Large Language Model (LLM) agents are deployed across sustained, multi-session environments, conventional memory architectures suffer from three fundamental pathologies: (1) \textit{Associative Blindness}, wherein flat dense vector indexes fail to traverse multi-hop relational dependencies across distant interaction sessions; (2) \textit{Scaffolding Amnesia}, where standard wall-clock temporal decay rules aggressively erase foundational user identity and architectural constraints; and (3) \textit{Static Topology Stagnation}, where existing graph-augmented retrieval systems treat network structure as immutable, ignoring real-time usage dynamics and task utility. In this work, we propose \textbf{EngramRAG}, a hierarchical hybrid memory architecture for autonomous agents grounded in Complementary Learning Systems (CLS) principles. EngramRAG partitions memory operations into a low-latency streaming ingestion and retrieval reflex (``Waking State'') and an asynchronous background synaptic consolidation cycle (``Dreaming State''). EngramRAG introduces Usage-Modulated Personalized PageRank (U-PPR), a spreading activation algorithm wherein transition probabilities adapt via activity-dependent Hebbian plasticity to dynamically promote persistent foundational entities into high-centrality Epistemic Macro-Hubs; Consolidation-Activated Topology Decay (CATD), a selective forgetting rule executed strictly off the read path that scales retention half-life by topological load-bearing weight rather than wall-clock recency, protected by a cold-start grace period ($N_{\text{grace}} \ge 4$); and hierarchical context engineering fusing dense vectors, U-PPR graph traversal, and BM25 via dynamic intent-routed Reciprocal Rank Fusion (RRF). We evaluate EngramRAG locally across all 10 long-term multi-session conversations (1,982 evaluation QA pairs) in the \textbf{LoCoMo} benchmark. EngramRAG achieves a \textbf{+38.9\% relative improvement in Recall@5} (53.21\% vs. 38.29\%, paired $t=13.57, p < 0.001$) and a \textbf{+43.1\% improvement in MRR} (0.4203 vs. 0.2937, $p < 0.001$) over dense vector RAG, while significantly outperforming Okapi BM25 (+4.55 percentage points in Recall@5, paired $t=5.90, p < 0.001$; MRR 0.4203 vs. 0.4059, $p = 0.027$) and surpassing static graph RAG by $>6\times$ (53.21\% vs. 8.50\%, $p < 0.001$). On temporal reasoning, EngramRAG yields 62.33\% Recall@5 (+16.67 points over dense vectors, +6.23 points over BM25). In downstream closed-loop generation with a local 7B reader model, EngramRAG demonstrates token F1 parity (17.29\% vs. 18.34\%) alongside superior temporal generation precision (18.18\% vs. 11.77\%). In simulated knowledge mutation evaluations over 50 synthetic episodes, directed \texttt{SUPERSEDES} DAG filtering reduces split-brain hallucinations from 70.0\% down to \textbf{0.0\%}. Longitudinal 90-day continuous deployment simulations prove that CATD achieves \textbf{100.0\% scaffolding retention} where baseline temporal decay degrades to 60.0\%, all while maintaining sub-30ms retrieval latency.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -57,11 +57,11 @@ MemGPT \cite{packer2023memgpt} & Context FIFO / OS Paging & None (Static) & None
 HippoRAG \cite{gutierrez2024hipporag} & Static Knowledge Graph & None (Static) & None (Static Graph) & Offline Batch Ingest & None (Static Corpus) & Medium (5--15 ms) \\
 GraphRAG \cite{edge2024graphrag} & Hierarchical Communities & None (Static) & None (Static Summary) & Offline Map-Reduce & None (Static Corpus) & Very High ($>5000$ ms) \\
 Mem0 \cite{chhikara2025mem0} & Entity Graph + Vector Store & None (Static) & Partial (Distance-based) & Synchronous Pipeline & Overwrite Conflict & Medium (50--100 ms) \\
-\textbf{EpiGraph (Proposed)} & \textbf{Dynamic Attributed Graph} & \textbf{Hebbian Plasticity} & \textbf{CATD Grace Retention} & \textbf{Waking / Dreaming} & \textbf{SUPERSEDES DAG} & \textbf{Low (Sub-30 ms)} \\
+\textbf{EngramRAG (Proposed)} & \textbf{Dynamic Attributed Graph} & \textbf{Hebbian Plasticity} & \textbf{CATD Grace Retention} & \textbf{Waking / Dreaming} & \textbf{SUPERSEDES DAG} & \textbf{Low (Sub-30 ms)} \\
 \bottomrule
 \end{tabular}
 }
-\caption{Taxonomy of agentic memory architectures. EpiGraph uniquely provides dynamic Hebbian edge plasticity, consolidation-activated scaffolding retention, decoupled asynchronous stream processing, and directed DAG mutation tracking under sub-30ms retrieval budgets.}
+\caption{Taxonomy of agentic memory architectures. EngramRAG uniquely provides dynamic Hebbian edge plasticity, consolidation-activated scaffolding retention, decoupled asynchronous stream processing, and directed DAG mutation tracking under sub-30ms retrieval budgets.}
 \label{tab:architecture_comparison}
 \end{table*}
 
@@ -84,12 +84,12 @@ Despite their strengths, these paradigms fail in continuous conversational agent
     \item \textbf{Static Topology Stagnation}: Prior graph memory methods assume fixed knowledge corpora, failing to adapt edge weights to actual conversational retrieval frequencies, and suffering split-brain hallucinations when facts mutate.
 \end{enumerate}
 
-\paragraph{Contributions.} In this paper, we present \textbf{EpiGraph}, a unified framework that overcomes these limitations:
+\paragraph{Contributions.} In this paper, we present \textbf{EngramRAG}, a unified framework that overcomes these limitations:
 \begin{itemize}
     \item We formulate \textbf{Dynamic Hebbian Usage Plasticity} on memory graphs, where edge weights dynamically strengthen when co-retrieved during conversational tasks.
     \item We introduce \textbf{Usage-Modulated Personalized PageRank (U-PPR)} and mathematically define the emergence of \textbf{Epistemic Macro-Hubs} that anchor multi-hop context expansion.
     \item We formulate \textbf{Consolidation-Activated Topology Decay (CATD)}, solving Scaffolding Amnesia through load-bearing topological retention.
-    \item We validate EpiGraph on the full 10-conversation, 1,982-question \textbf{LoCoMo} benchmark \cite{maharana2024evaluating}, demonstrating statistically significant gains ($p < 0.001$) across factual, temporal, and multi-session reasoning categories with sub-30ms query latency.
+    \item We validate EngramRAG on the full 10-conversation, 1,982-question \textbf{LoCoMo} benchmark \cite{maharana2024evaluating}, demonstrating statistically significant gains ($p < 0.001$) across factual, temporal, and multi-session reasoning categories with sub-30ms query latency.
     \item We demonstrate that directed \texttt{SUPERSEDES} DAG filtering eliminates split-brain hallucinations (0.0\% vs. 70.0\%) across mutating long-term facts in synthetic simulation environments.
 \end{itemize}
 
@@ -103,20 +103,20 @@ Despite their strengths, these paradigms fail in continuous conversational agent
 
 
 \paragraph{Architectural Comparison and Taxonomy.}
-Table \ref{tab:architecture_comparison} contextualizes EpiGraph against leading memory systems. While OS-paging models like MemGPT rely on expensive synchronous LLM function calls ($>1000$ ms) to page conversation windows, and static graph models like HippoRAG and GraphRAG construct immutable offline indices, EpiGraph couples a low-latency ($<30$ ms) hybrid retrieval reflex with an asynchronous background consolidation engine. Furthermore, unlike existing methods that suffer from either Scaffolding Amnesia (evicting foundational facts via wall-clock recency) or Split-Brain Hallucination (when conflicting facts co-exist in vector space), EpiGraph incorporates dynamic Hebbian weight modulation, load-bearing topological decay, and directed \texttt{SUPERSEDES} DAG pruning.
+Table \ref{tab:architecture_comparison} contextualizes EngramRAG against leading memory systems. While OS-paging models like MemGPT rely on expensive synchronous LLM function calls ($>1000$ ms) to page conversation windows, and static graph models like HippoRAG and GraphRAG construct immutable offline indices, EngramRAG couples a low-latency ($<30$ ms) hybrid retrieval reflex with an asynchronous background consolidation engine. Furthermore, unlike existing methods that suffer from either Scaffolding Amnesia (evicting foundational facts via wall-clock recency) or Split-Brain Hallucination (when conflicting facts co-exist in vector space), EngramRAG incorporates dynamic Hebbian weight modulation, load-bearing topological decay, and directed \texttt{SUPERSEDES} DAG pruning.
 
 \begin{figure*}[t]
     \centering
     \includegraphics[width=0.80\textwidth]{figures/fig6_system_architecture}
-    \caption{The EpiGraph Dual-Brain Architecture: Low-latency streaming Waking State (top) decoupled from asynchronous background Dreaming State synaptic consolidation (bottom).}
+    \caption{The EngramRAG Dual-Brain Architecture: Low-latency streaming Waking State (top) decoupled from asynchronous background Dreaming State synaptic consolidation (bottom).}
     \label{fig:architecture}
 \end{figure*}
 
 
 
-\section{The EpiGraph Architecture}
+\section{The EngramRAG Architecture}
 
-As illustrated in Figure \ref{fig:architecture}, EpiGraph partitions operations into a low-latency Waking State reflex and an asynchronous background Dreaming State consolidation cycle.
+As illustrated in Figure \ref{fig:architecture}, EngramRAG partitions operations into a low-latency Waking State reflex and an asynchronous background Dreaming State consolidation cycle.
 
 \subsection{Waking State: Ingestion and Retrieval Reflex}
 During live agent-user interaction, raw dialogue transcripts are processed through an event-driven streaming reflex:
@@ -138,7 +138,7 @@ In the background (e.g., every 6 hours), an offline consolidation worker perform
 
 \subsection{Distributed Systems Architecture \& Storage Engine Specs}
 \label{sec:distributed_storage}
-EpiGraph's design is engineered for low-latency production deployment using decoupled storage engines tailored to relational and vector modalities:
+EngramRAG's design is engineered for low-latency production deployment using decoupled storage engines tailored to relational and vector modalities:
 \begin{itemize}
     \item \textbf{Redis Stack (RedisJSON + RediSearch)}: Manages real-time fact envelopes (\texttt{doc:\{fact\_id\}}) and high-throughput vector similarity search. The vector index uses Hierarchical Navigable Small World (HNSW) graphs \cite{malkov2018hnsw} configured with $M=16$, $efConstruction=200$, $efRuntime=50$, and cosine distance metric across 384-dimensional embeddings, accompanied by parallel inverted text indexes for Okapi BM25 keyword matching.
     \item \textbf{Neo4j Graph Database Driver}: Provides ACID-compliant persistence and directional topological queries for conversational multi-graphs. Cypher projections model typed relational edges including \texttt{[:CO\_OCCURS]}, \texttt{[:ASSOCIATED\_WITH]}, and \texttt{[:SUPERSEDES]}. Schema constraints enforce uniqueness across entity identifiers and fact hashes.
@@ -147,8 +147,8 @@ EpiGraph's design is engineered for low-latency production deployment using deco
 \end{itemize}
 
 \begin{algorithm}[t]
-\caption{EpiGraph Dual-Brain Lifecycle}
-\label{alg:epigraph_lifecycle}
+\caption{EngramRAG Dual-Brain Lifecycle}
+\label{alg:engramrag_lifecycle}
 \footnotesize
 \begin{algorithmic}[1]
 \Require Utterance $u_t$, query $q$, graph $\mathcal{G} = (\mathcal{V}, \mathcal{E}, \mathbf{W})$, models $f_{\text{embed}}$, indices $\mathcal{I}_{\text{vec}}, \mathcal{I}_{\text{bm25}}$.
@@ -232,7 +232,7 @@ where $\mu_\pi = \frac{1}{|\mathcal{V}|}\sum_{v \in \mathcal{V}} \pi_{\text{glob
 \begin{figure*}[t]
     \centering
     \includegraphics[width=0.80\textwidth]{figures/fig7_knowledge_mutation_dag}
-    \caption{Knowledge Mutation \& Contradiction Resolution: Flat Vector Cosine Competition leading to 70\% Split-Brain Hallucination (left) vs. EpiGraph Directed \texttt{SUPERSEDES} DAG achieving 0.0\% Hallucination (right).}
+    \caption{Knowledge Mutation \& Contradiction Resolution: Flat Vector Cosine Competition leading to 70\% Split-Brain Hallucination (left) vs. EngramRAG Directed \texttt{SUPERSEDES} DAG achieving 0.0\% Hallucination (right).}
     \label{fig:knowledge_dag}
 \end{figure*}
 
@@ -300,7 +300,7 @@ Table \ref{tab:locomo_overall} summarizes retrieval performance across all 1,982
 Static Graph RAG (HippoRAG-style) & 3.99\% & 7.07\% & 8.50\% & 9.38\% & 0.0657 & 5.70 ms \\
 Dense Vector RAG (all-MiniLM-L6-v2) & 17.17\% & 31.32\% & 38.29\% & 43.09\% & 0.2937 & 14.37 ms \\
 BM25 Keyword (Okapi) & \textbf{28.51\%} & 43.47\% & 48.66\% & 52.98\% & 0.4059 & \textbf{0.63 ms} \\
-\textbf{EpiGraph (Proposed)} & 27.21\%$^*$ & \textbf{45.40\%}$^*$ & \textbf{53.21\%}$^{*\dagger}$ & \textbf{58.12\%}$^*$ & \textbf{0.4203}$^{*\ddagger}$ & 26.21 ms \\
+\textbf{EngramRAG (Proposed)} & 27.21\%$^*$ & \textbf{45.40\%}$^*$ & \textbf{53.21\%}$^{*\dagger}$ & \textbf{58.12\%}$^*$ & \textbf{0.4203}$^{*\ddagger}$ & 26.21 ms \\
 \midrule
 \textit{Relative Gain vs. Dense Vector} & \textbf{+58.5\%} & \textbf{+45.0\%} & \textbf{+39.0\%} & \textbf{+34.9\%} & \textbf{+43.1\%} & --- \\
 \textit{Absolute Gain vs. BM25} & -1.30\% & +1.93\% & \textbf{+4.55\%}$^\dagger$ & \textbf{+5.14\%} & \textbf{+0.0144}$^\ddagger$ & --- \\
@@ -316,7 +316,7 @@ BM25 Keyword (Okapi) & \textbf{28.51\%} & 43.47\% & 48.66\% & 52.98\% & 0.4059 &
 \resizebox{\columnwidth}{!}{
 \begin{tabular}{lcccc}
 \toprule
-\textbf{LoCoMo Question Category} & \textbf{Dense Vector} & \textbf{BM25} & \textbf{Static Graph} & \textbf{EpiGraph (Proposed)} \\
+\textbf{LoCoMo Question Category} & \textbf{Dense Vector} & \textbf{BM25} & \textbf{Static Graph} & \textbf{EngramRAG (Proposed)} \\
 \midrule
 Category 1 (Factual Recall) & \textbf{22.13\%} & 14.84\% & 2.22\% & 21.89\% \\
 Category 2 (Temporal Reasoning) & 45.66\% & 56.10\% & 12.64\% & \textbf{62.33\%} (+6.23\%) \\
@@ -331,13 +331,13 @@ Category 5 (Conversational / Open) & 28.36\% & 55.94\% & 9.42\% & \textbf{57.17\
 \end{table}
 
 \paragraph{Category Performance Analysis.}
-As detailed in Table \ref{tab:locomo_category}, EpiGraph's primary advantages emerge in complex multi-session reasoning and multi-hop associative queries. In Category 2 (\textbf{Temporal Reasoning}), EpiGraph achieves 62.33\% Recall@5 vs. 56.10\% for BM25 and 45.66\% for Dense Vector (+16.67 points). In Category 3 (\textbf{Multi-Session Reasoning}), EpiGraph achieves 25.25\% vs. 19.47\% Dense Vector and 18.63\% BM25 (+5.78 points gain). In Category 4 (\textbf{Multi-Hop Inference}), EpiGraph reaches 61.18\% Recall@5, surpassing BM25 (56.58\%) and Dense Vector (48.22\%) by bridging multi-hop relational paths. In Category 1 (\textbf{Factual Recall}), Dense Vector marginally leads (22.13\% vs. 21.89\%) due to direct chunk alignment, while BM25 achieves 14.84\%. On Category 5 (\textbf{Conversational / Open}), EpiGraph leads with 57.17\% vs. 55.94\% for BM25 and 28.36\% for Dense Vector. EpiGraph's quad-leg fusion outperforms all baselines on cumulative Recall@3, Recall@5, and MRR.
+As detailed in Table \ref{tab:locomo_category}, EngramRAG's primary advantages emerge in complex multi-session reasoning and multi-hop associative queries. In Category 2 (\textbf{Temporal Reasoning}), EngramRAG achieves 62.33\% Recall@5 vs. 56.10\% for BM25 and 45.66\% for Dense Vector (+16.67 points). In Category 3 (\textbf{Multi-Session Reasoning}), EngramRAG achieves 25.25\% vs. 19.47\% Dense Vector and 18.63\% BM25 (+5.78 points gain). In Category 4 (\textbf{Multi-Hop Inference}), EngramRAG reaches 61.18\% Recall@5, surpassing BM25 (56.58\%) and Dense Vector (48.22\%) by bridging multi-hop relational paths. In Category 1 (\textbf{Factual Recall}), Dense Vector marginally leads (22.13\% vs. 21.89\%) due to direct chunk alignment, while BM25 achieves 14.84\%. On Category 5 (\textbf{Conversational / Open}), EngramRAG leads with 57.17\% vs. 55.94\% for BM25 and 28.36\% for Dense Vector. EngramRAG's quad-leg fusion outperforms all baselines on cumulative Recall@3, Recall@5, and MRR.
 
 \enlargethispage{2\baselineskip}
 
 
 \subsection{Longitudinal Continuous Deployment Simulation (SCDP)}
-To evaluate memory retention over extended horizons, we executed the Simulated Continuous Deployment Protocol (SCDP), tracking 100 conversational episodes across 90 simulated days. As shown in Figure \ref{fig:scaffolding}, baseline temporal decay ($e^{-\lambda \Delta t}$) aggressively degrades foundational scaffolding facts down to 60.0\% retention by Day 90. In contrast, EpiGraph's CATD achieves \textbf{100.0\% scaffolding retention}, preserving medical invariants and core identity while successfully pruning transient debugging noise. Figure \ref{fig:centrality} confirms that Epistemic Macro-Hubs dynamically emerge with high centrality ($\pi^*(v) \approx 0.26$), providing stable cognitive anchors across multi-turn sessions.
+To evaluate memory retention over extended horizons, we executed the Simulated Continuous Deployment Protocol (SCDP), tracking 100 conversational episodes across 90 simulated days. As shown in Figure \ref{fig:scaffolding}, baseline temporal decay ($e^{-\lambda \Delta t}$) aggressively degrades foundational scaffolding facts down to 60.0\% retention by Day 90. In contrast, EngramRAG's CATD achieves \textbf{100.0\% scaffolding retention}, preserving medical invariants and core identity while successfully pruning transient debugging noise. Figure \ref{fig:centrality} confirms that Epistemic Macro-Hubs dynamically emerge with high centrality ($\pi^*(v) \approx 0.26$), providing stable cognitive anchors across multi-turn sessions.
 
 \begin{figure*}[t]
     \centering
@@ -349,7 +349,7 @@ To evaluate memory retention over extended horizons, we executed the Simulated C
 
 \subsection{Knowledge Update and Contradiction Resolution}
 
-A critical failure mode of long-term conversational memory is \textit{Split-Brain Hallucination}, where mutated facts (e.g., relocation, changed preferences) co-exist in retrieval indices and prompt agents with outdated beliefs (Figure \ref{fig:knowledge_dag}a). We evaluated 50 simulated multi-session knowledge update episodes across five representative domains (Location, Dietary Invariants, Primary Programming Language, Database Choice, and Security Policy). As summarized in Table \ref{tab:knowledge_update}, Dense Vector RAG suffers a \textbf{70.0\% split-brain hallucination rate} and BM25 suffers an \textbf{80.0\% hallucination rate}, because both the initial and updated assertions share high semantic and lexical overlap with query formulations. In contrast, EpiGraph's directed \texttt{SUPERSEDES} graph filtering resolves conflicting assertions during U-PPR traversal (Figure \ref{fig:knowledge_dag}b), achieving \textbf{0.0\% split-brain hallucination} while preserving \textbf{100.0\% current fact recall}.
+A critical failure mode of long-term conversational memory is \textit{Split-Brain Hallucination}, where mutated facts (e.g., relocation, changed preferences) co-exist in retrieval indices and prompt agents with outdated beliefs (Figure \ref{fig:knowledge_dag}a). We evaluated 50 simulated multi-session knowledge update episodes across five representative domains (Location, Dietary Invariants, Primary Programming Language, Database Choice, and Security Policy). As summarized in Table \ref{tab:knowledge_update}, Dense Vector RAG suffers a \textbf{70.0\% split-brain hallucination rate} and BM25 suffers an \textbf{80.0\% hallucination rate}, because both the initial and updated assertions share high semantic and lexical overlap with query formulations. In contrast, EngramRAG's directed \texttt{SUPERSEDES} graph filtering resolves conflicting assertions during U-PPR traversal (Figure \ref{fig:knowledge_dag}b), achieving \textbf{0.0\% split-brain hallucination} while preserving \textbf{100.0\% current fact recall}.
 
 \begin{table}[t]
 \centering
@@ -360,7 +360,7 @@ A critical failure mode of long-term conversational memory is \textit{Split-Brai
 \midrule
 Dense Vector RAG & 100.0\% & 70.0\% & None (Cosine Competition) \\
 BM25 Keyword (Okapi) & 86.0\% & 80.0\% & None (Lexical Overlap) \\
-\textbf{EpiGraph (SUPERSEDES DAG)} & \textbf{100.0\%} & \textbf{0.0\%} & \textbf{Topological Suppression} \\
+\textbf{EngramRAG (SUPERSEDES DAG)} & \textbf{100.0\%} & \textbf{0.0\%} & \textbf{Topological Suppression} \\
 \bottomrule
 \end{tabular}
 }
@@ -371,7 +371,7 @@ BM25 Keyword (Okapi) & 86.0\% & 80.0\% & None (Lexical Overlap) \\
 \subsection{Downstream Closed-Loop LLM Generation}
 To evaluate whether upstream retrieval advantages transfer to downstream generative tasks, we evaluated zero-shot question-answering across stratified LoCoMo dialogues using a local open-weights LLM (Qwen2.5-7B-Instruct via Ollama on Apple Silicon GPU). Table \ref{tab:closed_loop} reports Token F1, Exact Match (EM), ROUGE-L, and Temporal F1 across all evaluated contexts.
 
-As shown in Table \ref{tab:closed_loop}, all backbones achieve identical Exact Match (2.56\%), reflecting the conversational open-ended nature of LoCoMo ground-truth responses. On Token F1 and ROUGE-L, EpiGraph exhibits near parity with the baselines (17.29\% vs. 18.34\% Dense Vector and 17.84\% BM25). This downstream plateau illustrates a key systems insight: while EpiGraph's upstream retrieval provides superior multi-hop topological recall, 7B-parameter instruction readers can experience context dispersion and attention dilution when processing expanded associative contexts. However, on \textbf{Temporal F1}, EpiGraph achieves 18.18\% vs. 11.77\% for Dense Vector (+6.41 percentage points), confirming that topological temporal ordering in memory graphs directly aids downstream chronological comprehension.
+As shown in Table \ref{tab:closed_loop}, all backbones achieve identical Exact Match (2.56\%), reflecting the conversational open-ended nature of LoCoMo ground-truth responses. On Token F1 and ROUGE-L, EngramRAG exhibits near parity with the baselines (17.29\% vs. 18.34\% Dense Vector and 17.84\% BM25). This downstream plateau illustrates a key systems insight: while EngramRAG's upstream retrieval provides superior multi-hop topological recall, 7B-parameter instruction readers can experience context dispersion and attention dilution when processing expanded associative contexts. However, on \textbf{Temporal F1}, EngramRAG achieves 18.18\% vs. 11.77\% for Dense Vector (+6.41 percentage points), confirming that topological temporal ordering in memory graphs directly aids downstream chronological comprehension.
 
 \begin{table}[t]
 \centering
@@ -382,7 +382,7 @@ As shown in Table \ref{tab:closed_loop}, all backbones achieve identical Exact M
 \midrule
 Dense Vector RAG & 18.34\% & 2.56\% & 18.34\% & 11.77\% \\
 BM25 Keyword & 17.84\% & 2.56\% & 17.11\% & \textbf{23.18\%} \\
-\textbf{EpiGraph (Proposed)} & 17.29\% & 2.56\% & 17.29\% & 18.18\% \\
+\textbf{EngramRAG (Proposed)} & 17.29\% & 2.56\% & 17.29\% & 18.18\% \\
 \bottomrule
 \end{tabular}
 }
@@ -398,15 +398,15 @@ To inspect associative retrieval under long conversational horizons, we trace a 
 \paragraph{Flat Vector Failure (Associative Blindness).}
 The query focuses on restaurant recommendations and dish selections. When embedded into dense space, the nearest neighbors retrieved by Dense Vector RAG are descriptions of Chicago pizza crusts, dining atmosphere, and Italian pasta from Sessions 18 and 22. Because the query contains neither the term ``celiac'' nor ``gluten'', the cosine similarity between the query embedding and the Session 3 health constraint is only $0.28$ (ranked \#47 in the candidate pool, well outside the top-5 retrieval budget). Consequently, Dense Vector RAG fails to inject the dietary restriction into the reader prompt, leading the downstream LLM to enthusiastically recommend traditional wheat-flour deep-dish crust.
 
-\paragraph{EpiGraph Traversal via Epistemic Macro-Hubs.}
-In contrast, EpiGraph initializes teleportation seeds on the extracted entities \texttt{Giordano's}, \texttt{deep-dish pizza}, and \texttt{Italian trattoria}. During U-PPR spreading activation (Eq. 2--3), probability mass propagates along co-occurrence and associative edges to the user's central profile hub: the Epistemic Macro-Hub representing \texttt{User Health Constraints}, which satisfies the macro-hub criterion ($\pi^*_{\text{global}} \ge \mu_\pi + 1.2\sigma_\pi$). From this topological bridge, activation flows with strong Hebbian edge weight directly into the target node \texttt{Celiac Disease: Gluten Prohibited}. Reciprocal Rank Fusion elevates this node into rank \#1 of the final prompt context. Downstream generation correctly issues an urgent cautionary advisory: \textit{``Because of your celiac disease, traditional deep-dish pizza at Giordano's contains gluten; verify if their dedicated gluten-free crust is available.''}
+\paragraph{EngramRAG Traversal via Epistemic Macro-Hubs.}
+In contrast, EngramRAG initializes teleportation seeds on the extracted entities \texttt{Giordano's}, \texttt{deep-dish pizza}, and \texttt{Italian trattoria}. During U-PPR spreading activation (Eq. 2--3), probability mass propagates along co-occurrence and associative edges to the user's central profile hub: the Epistemic Macro-Hub representing \texttt{User Health Constraints}, which satisfies the macro-hub criterion ($\pi^*_{\text{global}} \ge \mu_\pi + 1.2\sigma_\pi$). From this topological bridge, activation flows with strong Hebbian edge weight directly into the target node \texttt{Celiac Disease: Gluten Prohibited}. Reciprocal Rank Fusion elevates this node into rank \#1 of the final prompt context. Downstream generation correctly issues an urgent cautionary advisory: \textit{``Because of your celiac disease, traditional deep-dish pizza at Giordano's contains gluten; verify if their dedicated gluten-free crust is available.''}
 
 \subsection{Error Analysis and Failure Taxonomy}
-We conducted an error analysis across all 1,982 queries in LoCoMo to categorize instances where EpiGraph does not attain top retrieval rank:
+We conducted an error analysis across all 1,982 queries in LoCoMo to categorize instances where EngramRAG does not attain top retrieval rank:
 
-\paragraph{1) Category 1 Verbatim Lookups (Dense Vector Margin).} In Category 1 (Factual Recall), Dense Vector RAG marginally leads EpiGraph (22.13\% vs. 21.89\%, a $0.24\%$ margin). When queries mirror exact source utterance syntax, flat dense embeddings produce nearly perfect point-to-point cosine alignment. Spreading activation across topological neighbors can introduce minor semantic dispersion if top-$K$ budget is saturated before point-match candidates are fully ranked.
+\paragraph{1) Category 1 Verbatim Lookups (Dense Vector Margin).} In Category 1 (Factual Recall), Dense Vector RAG marginally leads EngramRAG (22.13\% vs. 21.89\%, a $0.24\%$ margin). When queries mirror exact source utterance syntax, flat dense embeddings produce nearly perfect point-to-point cosine alignment. Spreading activation across topological neighbors can introduce minor semantic dispersion if top-$K$ budget is saturated before point-match candidates are fully ranked.
 
-\paragraph{2) Category 4 Lexical Specificity (BM25 Synergy).} In Category 4 (Multi-Hop Inference), BM25 achieves a strong 56.58\% Recall@5 due to queries featuring rare proper nouns, unique numeric codes, or idiosyncratic product names that act as high-IDF lexical discriminators. Dense vector embeddings diffuse these tokens across semantic neighbors. EpiGraph overcomes this via quad-leg RRF fusion, outperforming standalone BM25 by $+4.60\%$ points (61.18\%) by combining lexical precision with multi-hop graph hops.
+\paragraph{2) Category 4 Lexical Specificity (BM25 Synergy).} In Category 4 (Multi-Hop Inference), BM25 achieves a strong 56.58\% Recall@5 due to queries featuring rare proper nouns, unique numeric codes, or idiosyncratic product names that act as high-IDF lexical discriminators. Dense vector embeddings diffuse these tokens across semantic neighbors. EngramRAG overcomes this via quad-leg RRF fusion, outperforming standalone BM25 by $+4.60\%$ points (61.18\%) by combining lexical precision with multi-hop graph hops.
 
 \paragraph{3) Context Dispersion in Downstream Generation.} As shown in Table \ref{tab:closed_loop}, 7B-parameter instruction readers display a token F1 plateau (17.29\% vs. 18.34\%) despite upstream recall gains (+39.0\% Recall@5). Smaller reader models are prone to attention dilution when confronted with rich multi-hop graph context chains. Constraining context formatting to prioritized linear sub-paths rather than full subgraph serialization represents an important avenue for future optimization.
 
@@ -420,11 +420,11 @@ As shown in Figure \ref{fig:analysis}a, setting $N_{\text{grace}} = 1$ leads to 
 Comparing static RRF weights ($[0.35, 0.35, 0.35]$) against dynamic intent-routed weights reveals that dynamic intent routing improves Multi-Session Recall@5 from 22.75\% to 23.53\% and Recall@1 from 22.25\% to 22.73\% (MRR 0.4049 vs. 0.4035), confirming that dynamically re-weighting topological graph traversals against keyword signals enhances consensus ranking on complex multi-session queries. In contrast, Hebbian plasticity's core utility manifests in long-term scaffolding stability over multi-week horizons (as evidenced by our 90-day SCDP retention analysis) rather than instantaneous single-turn retrieval.
 
 \paragraph{Hyperparameter Sensitivity Landscape.}
-Figure \ref{fig:analysis}b--c illustrates EpiGraph's retrieval stability across PageRank damping factors $d \in [0.65, 0.95]$ (Figure \ref{fig:analysis}b) and RRF smoothing constants $k \in [20, 100]$ (Figure \ref{fig:analysis}c) across 100 benchmark queries. Across $d \in [0.65, 0.85]$, Recall@5 remains invariant at a high plateau of \textbf{43.39\%} (MRR 0.4070), with only a slight reduction to 42.59\% at $d=0.95$ when random teleportation is over-suppressed. Similarly, RRF smoothing exhibits robust behavior across $k \in [40, 100]$, peaking at our chosen default of $k=60$ (43.39\% Recall@5).
+Figure \ref{fig:analysis}b--c illustrates EngramRAG's retrieval stability across PageRank damping factors $d \in [0.65, 0.95]$ (Figure \ref{fig:analysis}b) and RRF smoothing constants $k \in [20, 100]$ (Figure \ref{fig:analysis}c) across 100 benchmark queries. Across $d \in [0.65, 0.85]$, Recall@5 remains invariant at a high plateau of \textbf{43.39\%} (MRR 0.4070), with only a slight reduction to 42.59\% at $d=0.95$ when random teleportation is over-suppressed. Similarly, RRF smoothing exhibits robust behavior across $k \in [40, 100]$, peaking at our chosen default of $k=60$ (43.39\% Recall@5).
 
 \section{Conclusion}
 
-We presented \textbf{EpiGraph}, a hierarchical hybrid memory system for autonomous AI agents that unites dynamic network science with streaming context engineering. By introducing Usage-Modulated Personalized PageRank (U-PPR), Epistemic Macro-Hubs, and Consolidation-Activated Topology Decay (CATD), EpiGraph eliminates both Associative Blindness and Scaffolding Amnesia. Comprehensive local evaluation on the LoCoMo benchmark (1,982 questions across 10 multi-session conversations) establishes statistically significant empirical gains over dense vector, BM25, and static graph baselines, while maintaining sub-30ms retrieval latency. Longitudinal continuous deployment simulations, knowledge mutation experiments, and sensitivity analyses demonstrate that EpiGraph offers a principled, biologically grounded foundation for persistent agentic intelligence. Future work will investigate query-conditioned sub-graph decomposition and path-constrained traversal algorithms to further strengthen multi-hop compositional reasoning.
+We presented \textbf{EngramRAG}, a hierarchical hybrid memory system for autonomous AI agents that unites dynamic network science with streaming context engineering. By introducing Usage-Modulated Personalized PageRank (U-PPR), Epistemic Macro-Hubs, and Consolidation-Activated Topology Decay (CATD), EngramRAG eliminates both Associative Blindness and Scaffolding Amnesia. Comprehensive local evaluation on the LoCoMo benchmark (1,982 questions across 10 multi-session conversations) establishes statistically significant empirical gains over dense vector, BM25, and static graph baselines, while maintaining sub-30ms retrieval latency. Longitudinal continuous deployment simulations, knowledge mutation experiments, and sensitivity analyses demonstrate that EngramRAG offers a principled, biologically grounded foundation for persistent agentic intelligence. Future work will investigate query-conditioned sub-graph decomposition and path-constrained traversal algorithms to further strengthen multi-hop compositional reasoning.
 \enlargethispage{2\baselineskip}
 
 %\IEEEtriggeratref{6}
