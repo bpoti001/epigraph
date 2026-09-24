@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" width="1200" height="620">
+  <defs>
+    <filter id="shadow-uppr" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrow-gold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#D97706"/>
+    </marker>
+    <marker id="arrow-blue-solid" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2563EB"/>
+    </marker>
+    <marker id="arrow-purple-solid" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#7C3AED"/>
+    </marker>
+  </defs>
+
+  <style>
+    .node-title-lg { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 800; }
+    .node-sub-lg { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; }
+    .node-title-md { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 13.5px; font-weight: 700; }
+    .node-sub-md { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 500; }
+    .edge-label-box { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="620" fill="#FFFFFF"/>
+  <rect x="20" y="15" width="1160" height="590" rx="16" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+
+  <!-- ==================== QUERY SEEDS (TOP ROW) ==================== -->
+  <!-- Query Seed 1 (BM25) -->
+  <g filter="url(#shadow-uppr)">
+    <rect x="80" y="50" width="260" height="85" rx="12" fill="#FFFFFF" stroke="#3B82F6" stroke-width="2"/>
+    <text x="210" y="82" text-anchor="middle" class="node-title-md" fill="#1E3A8A">Query Seed 1</text>
+    <text x="210" y="104" text-anchor="middle" class="node-sub-md" fill="#2563EB">Lexical BM25 Keyword Hit</text>
+    <rect x="130" y="112" width="160" height="18" rx="4" fill="#EFF6FF"/>
+    <text x="210" y="125" text-anchor="middle" font-size="10.5px" font-weight="700" fill="#1D4ED8">TELEPORTATION ANCHOR</text>
+  </g>
+
+  <!-- Query Seed 2 (HNSW) -->
+  <g filter="url(#shadow-uppr)">
+    <rect x="860" y="50" width="260" height="85" rx="12" fill="#FFFFFF" stroke="#3B82F6" stroke-width="2"/>
+    <text x="990" y="82" text-anchor="middle" class="node-title-md" fill="#1E3A8A">Query Seed 2</text>
+    <text x="990" y="104" text-anchor="middle" class="node-sub-md" fill="#2563EB">Dense Vector HNSW Hit</text>
+    <rect x="910" y="112" width="160" height="18" rx="4" fill="#EFF6FF"/>
+    <text x="990" y="125" text-anchor="middle" font-size="10.5px" font-weight="700" fill="#1D4ED8">SEMANTIC SIMILARITY</text>
+  </g>
+
+  <!-- Arrow Seed 1 -> God Node -->
+  <line x1="280" y1="138" x2="440" y2="225" stroke="#2563EB" stroke-width="2.2" marker-end="url(#arrow-blue-solid)"/>
+  <rect x="310" y="165" width="110" height="24" rx="5" fill="#FFFFFF" stroke="#BFDBFE" stroke-width="1"/>
+  <text x="365" y="181" text-anchor="middle" class="edge-label-box" fill="#1D4ED8">p(q, t) Prior</text>
+
+  <!-- Arrow Seed 2 -> God Node -->
+  <line x1="920" y1="138" x2="760" y2="225" stroke="#2563EB" stroke-width="2.2" marker-end="url(#arrow-blue-solid)"/>
+  <rect x="780" y="165" width="110" height="24" rx="5" fill="#FFFFFF" stroke="#BFDBFE" stroke-width="1"/>
+  <text x="835" y="181" text-anchor="middle" class="edge-label-box" fill="#1D4ED8">p(q, t) Prior</text>
+
+  <!-- ==================== EPISTEMIC MACRO-HUB (GOD NODE - CENTER) ==================== -->
+  <g filter="url(#shadow-uppr)">
+    <rect x="420" y="210" width="360" height="150" rx="16" fill="#FFFBEB" stroke="#F59E0B" stroke-width="2.8"/>
+    <rect x="420" y="210" width="360" height="8" rx="4" fill="#D97706"/>
+    <text x="600" y="248" text-anchor="middle" class="node-title-lg" fill="#78350F">⭐ Epistemic Macro-Hub ("God Node")</text>
+    <text x="600" y="275" text-anchor="middle" class="node-sub-lg" fill="#92400E">Foundational Persona &amp; Constraint Invariant</text>
+    <rect x="470" y="290" width="260" height="26" rx="6" fill="#FDE68A"/>
+    <text x="600" y="308" text-anchor="middle" class="edge-label-box" fill="#78350F">Stationary Centrality π*(v) = 0.264</text>
+    <text x="600" y="338" text-anchor="middle" font-size="11.5px" font-weight="600" fill="#B45309">Protected by CATD (Decay Half-Life Scaled by Degree)</text>
+  </g>
+
+  <!-- ==================== HEBBIAN PLASTICITY BRIDGE (LEFT) ==================== -->
+  <g filter="url(#shadow-uppr)">
+    <rect x="80" y="380" width="260" height="90" rx="12" fill="#FAF5FF" stroke="#A855F7" stroke-width="1.8"/>
+    <text x="210" y="410" text-anchor="middle" class="node-title-md" fill="#6B21A8">Hebbian Plasticity Bridge</text>
+    <text x="210" y="432" text-anchor="middle" class="node-sub-md" fill="#7E22CE">Co-Activated Interaction Turn</text>
+    <rect x="130" y="442" width="160" height="20" rx="4" fill="#F3E8FF"/>
+    <text x="210" y="456" text-anchor="middle" font-size="11px" font-weight="700" fill="#7E22CE">ΔWij = β · e^(-λ Δt)</text>
+  </g>
+
+  <!-- Bidirectional arrow between Hebbian Bridge and God Node -->
+  <line x1="345" y1="400" x2="435" y2="335" stroke="#7C3AED" stroke-width="2.5" marker-end="url(#arrow-purple-solid)"/>
+  <rect x="350" y="350" width="95" height="24" rx="5" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="1"/>
+  <text x="397" y="366" text-anchor="middle" class="edge-label-box" fill="#6D28D9">ΔW > 0</text>
+
+  <!-- ==================== MULTI-HOP CONTEXT TARGETS (RIGHT) ==================== -->
+  <!-- Target 1: Session 3 Fact (2-Hop) -->
+  <g filter="url(#shadow-uppr)">
+    <rect x="860" y="240" width="260" height="85" rx="12" fill="#F0FDF4" stroke="#22C55E" stroke-width="1.8"/>
+    <text x="990" y="272" text-anchor="middle" class="node-title-md" fill="#14532D">Session 3 Relational Fact</text>
+    <text x="990" y="294" text-anchor="middle" class="node-sub-md" fill="#16A34A">Traversed via Associative Graph</text>
+    <rect x="915" y="302" width="150" height="18" rx="4" fill="#DCFCE7"/>
+    <text x="990" y="315" text-anchor="middle" font-size="10.5px" font-weight="700" fill="#15803D">2-HOP REACHABLE</text>
+  </g>
+
+  <!-- Arrow God Node -> Target 1 -->
+  <line x1="785" y1="282" x2="855" y2="282" stroke="#D97706" stroke-width="2.5" marker-end="url(#arrow-gold)"/>
+
+  <!-- Target 2: Session 12 Constraint (3-Hop) -->
+  <g filter="url(#shadow-uppr)">
+    <rect x="860" y="380" width="260" height="85" rx="12" fill="#F0FDF4" stroke="#22C55E" stroke-width="1.8"/>
+    <text x="990" y="412" text-anchor="middle" class="node-title-md" fill="#14532D">Session 12 Constraint</text>
+    <text x="990" y="434" text-anchor="middle" class="node-sub-md" fill="#16A34A">Foundational Architectural Rule</text>
+    <rect x="915" y="442" width="150" height="18" rx="4" fill="#DCFCE7"/>
+    <text x="990" y="455" text-anchor="middle" font-size="10.5px" font-weight="700" fill="#15803D">3-HOP REACHABLE</text>
+  </g>
+
+  <!-- Arrow Target 1 -> Target 2 (Multi-hop chain) -->
+  <line x1="990" y1="330" x2="990" y2="375" stroke="#D97706" stroke-width="2.2" marker-end="url(#arrow-gold)"/>
+
+  <!-- ==================== TRANSIENT NOISE (BOTTOM CENTER) ==================== -->
+  <g filter="url(#shadow-uppr)">
+    <rect x="470" y="420" width="260" height="65" rx="10" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.2" stroke-dasharray="4,4"/>
+    <text x="600" y="448" text-anchor="middle" class="node-title-md" fill="#64748B">Transient Chatter Noise</text>
+    <text x="600" y="468" text-anchor="middle" font-size="11.5px" font-weight="600" fill="#94A3B8">Safely Pruned by CATD (Weight &lt; 0.10)</text>
+  </g>
+  <line x1="600" y1="365" x2="600" y2="415" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- ==================== LEGEND CAPSULE ==================== -->
+  <rect x="250" y="550" width="700" height="36" rx="18" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.2"/>
+  <text x="600" y="573" text-anchor="middle" font-family="sans-serif" font-size="12px" font-weight="600" fill="#334155">
+    <tspan fill="#D97706">&#9632; Gold: Epistemic Macro-Hub</tspan>   |   
+    <tspan fill="#2563EB">&#9632; Blue: Query Seeds</tspan>   |   
+    <tspan fill="#16A34A">&#9632; Green: Multi-Hop Targets</tspan>   |   
+    <tspan fill="#7C3AED">&#9632; Purple: Hebbian Bridge</tspan>
+  </text>
+</svg>
