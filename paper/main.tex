@@ -1,6 +1,5 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[conference]{IEEEtran}
 \usepackage[utf8]{inputenc}
-\usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -8,18 +7,77 @@
 \usepackage{microtype}
 \usepackage{subcaption}
 \usepackage{cite}
-\usepackage{authblk}
 
 \title{\textbf{EpiGraph: Dynamic Usage-Weighted Topology and Synaptic Consolidation for Multi-Hop Agentic Memory}}
 
-\author[1]{\textbf{Bhavyateja Potineni}\thanks{Corresponding author: \texttt{bhavyateja.potineni@chase.com}}}
-\author[1]{\textbf{Lohit Giri}}
-\author[1]{\textbf{Vadim Kutsyy}}
-\author[1]{\textbf{Rajasekhar Pentakota}}
-\affil[1]{JPMorgan Chase \& Co.}
-\affil[ ]{\texttt{\{bhavyateja.potineni, lohit.giri, rajasekhar.pentakota\}@chase.com}, \texttt{vadim.kutsyy@jpmchase.com}}
-
-\date{\today}
+\author{
+  \IEEEauthorblockN{Bhavyateja Potineni\IEEEauthorrefmark{1}\thanks{\IEEEauthorrefmark{1}Corresponding author: \texttt{bhavyateja.potineni@chase.com}}}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  bhavyateja.potineni@chase.com}
+  \and
+  \IEEEauthorblockN{Lohit Giri}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  lohit.giri@chase.com}
+  \and
+  \IEEEauthorblockN{Vadim Kutsyy}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  vadim.kutsyy@jpmchase.com}
+  \and
+  \IEEEauthorblockN{Rajasekhar Pentakota}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  rajasekhar.pentakota@chase.com}
+}
+\author{
+  \IEEEauthorblockN{Bhavyateja Potineni\IEEEauthorrefmark{1}\thanks{\IEEEauthorrefmark{1}Corresponding author: \texttt{bhavyateja.potineni@chase.com}}}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  bhavyateja.potineni@chase.com}
+  \and
+  \IEEEauthorblockN{Lohit Giri}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  lohit.giri@chase.com}
+  \and
+  \IEEEauthorblockN{Vadim Kutsyy}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  vadim.kutsyy@jpmchase.com}
+  \and
+  \IEEEauthorblockN{Rajasekhar Pentakota}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  rajasekhar.pentakota@chase.com}
+}
+\author{
+  \IEEEauthorblockN{Bhavyateja Potineni\IEEEauthorrefmark{1}\thanks{\IEEEauthorrefmark{1}Corresponding author: \texttt{bhavyateja.potineni@chase.com}}}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  bhavyateja.potineni@chase.com}
+  \and
+  \IEEEauthorblockN{Lohit Giri}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  lohit.giri@chase.com}
+  \and
+  \IEEEauthorblockN{Vadim Kutsyy}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  vadim.kutsyy@jpmchase.com}
+  \and
+  \IEEEauthorblockN{Rajasekhar Pentakota}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  rajasekhar.pentakota@chase.com}
+}
+\author{
+  \IEEEauthorblockN{Bhavyateja Potineni\IEEEauthorrefmark{1}\thanks{\IEEEauthorrefmark{1}Corresponding author: \texttt{bhavyateja.potineni@chase.com}}}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  bhavyateja.potineni@chase.com}
+  \and
+  \IEEEauthorblockN{Lohit Giri}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  lohit.giri@chase.com}
+  \and
+  \IEEEauthorblockN{Vadim Kutsyy}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  vadim.kutsyy@jpmchase.com}
+  \and
+  \IEEEauthorblockN{Rajasekhar Pentakota}
+  \IEEEauthorblockA{\textit{JPMorgan Chase \& Co.} \
+  rajasekhar.pentakota@chase.com}
+}
 
 \begin{document}
 
@@ -151,7 +209,7 @@ We evaluate on the official \textbf{LoCoMo} dataset \cite{mahbub2024locomo}, con
 \subsection{Overall Benchmark Results}
 Table \ref{tab:locomo_overall} summarizes the retrieval performance across all 496 questions.
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
 \small
 \begin{tabular}{lcccccc}
@@ -168,9 +226,9 @@ BM25 Keyword (Okapi) & 17.98\% & 29.24\% & 34.92\% & 45.77\% & 0.3274 & \textbf{
 \end{tabular}
 \caption{Retrieval performance on the complete LoCoMo benchmark (496 questions, 10 multi-session conversations).}
 \label{tab:locomo_overall}
-\end{table}
+\end{table*}
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
 \small
 \begin{tabular}{lcccc}
@@ -185,12 +243,12 @@ Category 4 (Multi-Hop Inference) & 26.32\% & \textbf{31.58\%} & 0.00\% & 23.68\%
 \end{tabular}
 \caption{Category-wise Recall@5 (\%) on LoCoMo. Bold indicates the top-performing model in each category.}
 \label{tab:locomo_category}
-\end{table}
+\end{table*}
 
 \paragraph{Category Performance Analysis.}
 As detailed in Table \ref{tab:locomo_category}, EpiGraph's primary strengths lie in Category 2 (\textbf{Temporal Reasoning}, achieving 63.60\% vs. Dense Vector's 45.49\%, an +18.11 percentage point improvement) and Category 3 (\textbf{Multi-Session Reasoning}, achieving 22.45\% vs. 17.97\%, a +4.48 point gain). In Category 1 (Factual Recall), Dense Vector marginally leads (22.84\% vs. 22.56\%) due to direct 1-to-1 semantic chunk alignment. In Category 4 (Multi-Hop Inference), BM25 achieves the highest recall (31.58\% vs. 23.68\%), because multi-hop queries in LoCoMo often hinge on specific rare lexical tokens (e.g., proper nouns and identifiers) that exact keyword matching isolates cleanly without multi-hop path dispersion. Overall, EpiGraph's quad-leg fusion strikes the optimal global balance, outperforming all baselines on cumulative Recall@1, Recall@5, and MRR.
 
-\begin{figure}[t]
+\begin{figure*}[t]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{figures/fig1_scaffolding_survival.png}
@@ -205,9 +263,9 @@ As detailed in Table \ref{tab:locomo_category}, EpiGraph's primary strengths lie
     \end{subfigure}
     \caption{Longitudinal evaluation under the 90-day continuous deployment protocol (SCDP).}
     \label{fig:longitudinal}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[t]
+\begin{figure*}[t]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{figures/fig3_locomo_performance.png}
@@ -222,7 +280,7 @@ As detailed in Table \ref{tab:locomo_category}, EpiGraph's primary strengths lie
     \end{subfigure}
     \caption{Category breakdown and grace period ablation analysis.}
     \label{fig:analysis}
-\end{figure}
+\end{figure*}
 
 \subsection{Longitudinal Continuous Deployment Simulation (SCDP)}
 To evaluate memory retention over extended horizons, we executed the Simulated Continuous Deployment Protocol (SCDP), tracking 100 conversational episodes across 90 simulated days.
@@ -231,7 +289,7 @@ As shown in Figure \ref{fig:scaffolding}, baseline temporal decay ($e^{-\lambda 
 \subsection{Knowledge Update and Contradiction Resolution}
 A critical failure mode of long-term conversational memory is \textit{Split-Brain Hallucination}, where mutated facts (e.g., relocation, changed preferences) co-exist in retrieval indices and prompt agents with outdated beliefs. We evaluated 50 multi-session knowledge update episodes across five representative domains (Location, Dietary Invariants, Primary Programming Language, Database Choice, and Security Policy). As summarized in Table \ref{tab:knowledge_update}, Dense Vector RAG suffers a \textbf{70.0\% split-brain hallucination rate} and BM25 suffers an \textbf{80.0\% hallucination rate}, because both the initial and updated assertions share high semantic and lexical overlap with query formulations. In contrast, EpiGraph's directed \texttt{SUPERSEDES} graph filtering resolves conflicting assertions during U-PPR traversal, achieving \textbf{0.0\% split-brain hallucination} while preserving \textbf{100.0\% current fact recall}.
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
 \small
 \begin{tabular}{lccc}
@@ -245,12 +303,12 @@ BM25 Keyword (Okapi) & 86.0\% & 80.0\% & None (Lexical Overlap) \\
 \end{tabular}
 \caption{Knowledge Update \& Contradiction Resolution benchmark across 50 multi-session mutation episodes.}
 \label{tab:knowledge_update}
-\end{table}
+\end{table*}
 
 \subsection{Downstream Closed-Loop LLM Generation}
 To evaluate whether upstream retrieval advantages transfer to downstream generative tasks, we evaluated zero-shot question-answering across stratified LoCoMo dialogues using a local open-weights LLM (Gemma-4 / 7B instruction-tuned) on Apple Silicon GPU. Table \ref{tab:closed_loop} reports Token F1, Exact Match (EM), and ROUGE-L across all evaluated contexts.
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
 \small
 \begin{tabular}{lcccc}
@@ -264,7 +322,7 @@ BM25 Keyword & 17.84\% & 2.56\% & 17.11\% & \textbf{23.18\%} \\
 \end{tabular}
 \caption{Downstream closed-loop LLM generative question answering performance on LoCoMo.}
 \label{tab:closed_loop}
-\end{table}
+\end{table*}
 
 \section{Ablation Studies}
 
@@ -277,12 +335,12 @@ Comparing static RRF weights ($[0.35, 0.35, 0.35]$) against dynamic intent-route
 \paragraph{Hyperparameter Sensitivity Landscape.}
 Figure \ref{fig:sensitivity} illustrates EpiGraph's retrieval stability across PageRank damping factors $d \in [0.65, 0.95]$ and RRF smoothing constants $k \in [20, 100]$ across 100 benchmark queries. Across $d \in [0.65, 0.85]$, Recall@5 remains invariant at a high plateau of \textbf{43.39\%} (MRR 0.4070), with only a slight reduction to 42.59\% at $d=0.95$ when random teleportation is over-suppressed. Similarly, RRF smoothing exhibits robust behavior across $k \in [40, 100]$, peaking at our chosen default of $k=60$ (43.39\% Recall@5).
 
-\begin{figure}[t]
+\begin{figure*}[t]
     \centering
     \includegraphics[width=0.95\textwidth]{figures/fig5_sensitivity_analysis.png}
     \caption{Hyperparameter sensitivity landscape: Stability across PageRank damping factor $d$ (left) and RRF smoothing constant $k$ (right).}
     \label{fig:sensitivity}
-\end{figure}
+\end{figure*}
 
 \section{Conclusion}
 
