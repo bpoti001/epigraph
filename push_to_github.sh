@@ -34,7 +34,7 @@ git remote remove origin 2>/dev/null || true
 git remote add origin "https://${GITHUB_USER}:${PAT}@github.com/${GITHUB_USER}/${REPO_NAME}.git"
 
 echo "Pushing 'main' branch..."
-git push -u origin main
+git -c credential.helper= push -u origin main
 
 echo ""
 echo "Cleaning up credentials from local git config..."
