@@ -86,7 +86,7 @@ def run_scdp_simulation(output_dir: str = None):
 
             # On Day 30: Fact Mutation occurs
             if day == 30 and session_count == 33:
-                graph.add_node("MUT_NEW", "Employer: JPMorgan Chase (Plano, TX)", node_type="turn", timestamp="Day 30")
+                graph.add_node("MUT_NEW", "Employer: CloudScale AI (Austin, TX)", node_type="turn", timestamp="Day 30")
                 graph.add_edge("CORE_1", "MUT_NEW", "EMPLOYED_AT", 2.0)
                 graph.add_edge("MUT_NEW", "MUT_OLD", "SUPERSEDES", 3.0)
 

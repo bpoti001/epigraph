@@ -47,7 +47,7 @@ To simulate an enterprise agent deployment over an accelerated 90-day timeline:
 - **Session Types**:
   1. *Core Setup (Sessions 1–10)*: User establishes core identity, project repositories, constraints ("I am allergic to peanuts", "Always use strict TypeScript").
   2. *Transient Episodes (Sessions 11–70)*: Daily debugging logs, ephemeral error codes, temporary travel bookings.
-  3. *Fact Mutations (Sessions 71–85)*: User updates previous state ("I changed my company from Capital One to JPMorgan", "Upgrade Python to 3.12").
+  3. *Fact Mutations (Sessions 71–85)*: User updates previous state ("I changed my company from TechCorp to CloudScale AI", "Upgrade Python to 3.12").
   4. *Recall & Long-Horizon Multi-Hop Queries (Sessions 86–100)*: Queries requiring synthesis of Session 3 core identity + Session 75 mutation + Session 92 project status.
 
 ---
